@@ -1,0 +1,189 @@
+.edit-box{
+    width: 100%;
+    height: 100%;
+    border: 2px dotted #EBEEF5;
+    margin: -2px;
+    background-color: #fff;
+}
+.ed-container{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    flex-basis: auto;
+    box-sizing: border-box;
+    min-width: 0; 
+}
+ //公共
+ .ed-scrollbar{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.is-vertical{
+    flex-direction: column;
+}
+.ed-header{
+    --el-header-padding: 0 20px;
+    --el-header-height: 60px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+.ed-main{
+    --el-main-padding: 20px;
+    display: block;
+    flex: 1;
+    flex-basis: auto;
+    overflow: auto;
+    box-sizing: border-box;
+}
+//左边
+.ed-aside{
+    margin: 0;
+    padding: 0;
+    background: inherit;
+}
+.left-panel{
+    width: 260px!important;
+    overflow-y: hidden;
+   .ed-scrollbar-wrap{
+        overflow: auto;
+        height: 100%;
+        max-height: 100%;
+        overflow-x: hidden;
+        .ed-scrollbar-view{
+            height: 100%;
+            .panel-container{
+                padding-bottom: 10px;
+            }
+        }
+   }
+   //组件列表
+   .module-list-box{
+    width: 100%;
+   }
+}
+//tabs标签
+.ed-tabs > .el-tabs__content {
+    padding: 32px;
+    color: #6b778c;
+    font-size: 32px;
+    font-weight: 600;
+  }
+  :deep(.el-tabs__nav-scroll){
+    padding: 0 20px;
+  }
+  .ed-tabs .custom-tabs-label .el-icon {
+    vertical-align: middle;
+  }
+  .ed-tabs .custom-tabs-label span {
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+//中间编辑区
+.center-layout-container{
+    min-width: 680px;
+    flex: 1;
+    border-left: 2px dotted #EBEEF5;
+    border-right: 2px dotted #EBEEF5;  
+    .toolbar-header{
+        font-size: 14px;
+        border-bottom: 1px dotted #CCCCCC;
+        height: 42px!important;
+        .toolbar-container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .editor-toolbar{
+                border:0px;
+            }
+        }
+    }
+    //编辑区
+    .form-widget-main{
+        padding: 0;
+        position: relative;
+        overflow-x: hidden;
+        .form-widget-container{
+            background: #fafafa;
+            background-color: #fafafa;
+            height: 100%;
+            width: 100%;
+            margin: 0 auto;
+            overflow: auto;
+            position: relative;
+            .container-raw{
+                >div{
+                    margin: 0 auto;
+                    &:not(:first-child){
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+//纵向A4
+.verticalA4{
+    /*需要将预览显示的界面限定在A4大小*/
+    width:210mm;
+    /*这个高度为什么不是A4的大小，是经过N次验证的方式得到的，唯一的目的就是为了保证预览和打印预览一致*/
+    /*可能是我写的有一点问题，但是如果设置为297，那么显示就会出现问题*/
+    height:340mm;
+    /*上下不要设置padding,否则打印预览下面的footer就会往上走*/   
+    padding: 0 24mm 0 24mm;
+    /* margin-bottom: 24mm; */
+    background-color: white;
+}
+//2横向A4
+.horizontalA4{
+    /*需要将预览显示的界面限定在A4大小*/
+    width:340mm;
+    /*这个高度为什么不是A4的大小，是经过N次验证的方式得到的，唯一的目的就是为了保证预览和打印预览一致*/
+    /*可能是我写的有一点问题，但是如果设置为297，那么显示就会出现问题*/
+    height:210mm;
+    /*上下不要设置padding,否则打印预览下面的footer就会往上走*/   
+    padding: 0 24mm 0 24mm;
+    /* margin-bottom: 24mm; */
+    background-color: white;
+}
+//编辑器
+
+.editor-container {
+    background: #fafafa;
+    background-color: #fafafa;
+    padding: 62px 0 64px;
+    // height: calc(100vh - 56px);
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
+    position: relative;
+    .editor-content {
+        position: relative;
+        width: 812px;
+        margin: 0 auto;
+        background: #fff;
+        border: 1px solid #f0f0f0;
+        min-height: 800px;
+    }
+    .editor-content .am-engine {
+        padding: 40px 60px 60px;
+    }
+    .editor-mobile .editor-content .am-engine {
+        padding: 18px 0 0 0;
+    }
+  }
+  
+
+//右边
+.right-panel{
+    overflow: auto;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: var(--el-aside-width,300px);
+    .panel-container{
+        padding: 0 8px;
+    }
+}
