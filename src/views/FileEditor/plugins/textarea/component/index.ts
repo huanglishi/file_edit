@@ -7,9 +7,9 @@ import {
   NodeInterface,
   ToolbarItemOptions,
 } from "@aomao/engine";
-class Textinput extends Card{
+class Textarea extends Card{
   static get cardName() {
-    return "textinput";
+    return "textarea";
   }
 
   static get cardType() {
@@ -39,15 +39,14 @@ class Textinput extends Card{
   render() {
     // 获取卡片的值
     const cardata=  this.getValue()
-    this.#container = $(`<input value="" id="input_${cardata.id}" style="min-width: 120px; width:100%; height: 30px;border-radius:0;border-top-width: 0px; border-left-width: 0px;border-right-width: 0px; border-bottom-width: 1px;border-color: #d9d9d9;" />`);
+    this.#container = $(`<textarea id="textarea_${cardata.id}" style="overflow: auto;resize: none;width:90px;height:60px;border: #d9d9d9 1px solid;"></textarea>`);
     return this.#container;
   }
 
   onChange(){
-    console.log("获取内容22",super.getValue())
   }
   destroy() {
     super.destroy();
   }
 }
-export default Textinput;
+export default Textarea;

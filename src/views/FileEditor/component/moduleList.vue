@@ -6,13 +6,13 @@
                     <template v-for="list in item.block">
                         <div class="block-item pointer" v-if="item.id=='layout'" @click="insertComponent($event,list.key)">
                             <span class="custom-tabs-label" >
-                                <svg-icon :iconName="list.icon"></svg-icon>
+                                <svg-icon :iconName="list.icon" :color="list.color"></svg-icon>
                                 <span> {{ list.name}}</span>
                             </span>
                         </div>
                         <div class="block-item pointer" v-if="item.id=='form'" @click="insertComponent($event,list.key)">
                             <span class="custom-tabs-label" >
-                                <svg-icon :iconName="list.icon"></svg-icon>
+                                <svg-icon :iconName="list.icon" :color="list.color"></svg-icon>
                                 <span> {{ list.name}}</span>
                             </span>
                         </div>
@@ -25,6 +25,7 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import SvgIcon from '../iconfont/SvgIcon.vue'
+  import { PluginList } from '../script/data';
   export default defineComponent({
     name: 'moduleList',
     components: { 
@@ -33,20 +34,7 @@
     emits: ['success', 'pointershow','insert'],
     setup(_, { emit }) {
         const activeName = ref<string[]>([])
-        const mdata=ref([
-                {id:"layout",title:"布局组件",block:[
-                    {key:"title",icon:"icon-biaoti",name:"标题"},
-                    {key:"table",icon:"icon-biaodanzujian-biaoge",name:"表格"},
-                ]},
-                {id:"form",title:"表单组件",block:[
-                    {key:"input",icon:"icon-wenbenkuang",name:"文本输入框"},
-                    // {key:"select",icon:"icon-xialakuang",name:"下拉"},
-                    {key:"checkbox",icon:"icon-fuxuankuang-true",name:"复选框"},
-                    // {key:"radio",icon:"icon-danxuankuang-copy",name:"单选框"},
-                    {key:"image",icon:"icon-tupian",name:"图片/签名"},
-                    {key:"textsync",icon:"icon-2dongtaiwenzi",name:"动态绑定数据"},
-                ]},
-            ])
+        const mdata=ref(PluginList)//获取组件列表
         //这个是展开
         mdata.value.forEach((item)=>{
             activeName.value.push(item.id)

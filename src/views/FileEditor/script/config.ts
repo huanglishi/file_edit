@@ -34,7 +34,7 @@ import SelectAll from "@aomao/plugin-selectall";
 import Link from "@aomao/plugin-link-vue";
 import Codeblock, { CodeBlockComponent } from "@aomao/plugin-codeblock-vue";
 import Image, { ImageComponent, ImageUploader } from "@aomao/plugin-image";
-import Table, { TableComponent } from "../plugins/plugin-table";
+import Table, { TableComponent } from "@aomao/plugin-table";
 import File, { FileComponent, FileUploader } from "@aomao/plugin-file";
 import Math, { MathComponent } from "@aomao/plugin-math";
 import Fontfamily from "@aomao/plugin-fontfamily";
@@ -47,6 +47,7 @@ import Textinput, { TextinputComponent }  from "../plugins/textinput";
 import Textcheckbox, { TextcheckboxComponent }  from "../plugins/textcheckbox";
 import Textimage, { TextimageComponent }  from "../plugins/textimage";
 import Textsync, { TextsyncComponent }  from "../plugins/textsync";
+import Textarea, { TextareaComponent }  from "../plugins/textarea";
 import {
   ToolbarPlugin,
   ToolbarComponent,
@@ -104,6 +105,7 @@ export const plugins: Array<PluginEntry> = [
   Textcheckbox,
   Textimage,
   Textsync,
+  Textarea,
 ];
 
 export const cards: Array<CardEntry> = [
@@ -122,6 +124,7 @@ export const cards: Array<CardEntry> = [
   TextcheckboxComponent,
   TextimageComponent,
   TextsyncComponent,
+  TextareaComponent,
 ];
 let engine: EngineInterface | null = null;
 

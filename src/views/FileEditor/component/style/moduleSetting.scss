@@ -1,0 +1,29 @@
+.pluginbox{
+    .headerline{
+        display: flex;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ebeef5;
+        .title{
+            flex: 1;
+            font-weight: 700;
+        }
+        .no{
+            font-size: 12px;
+            color: #8a8f8d;
+        }
+    }
+    //表单
+    .content-box{
+        padding: 10px 5px;
+        .style-setting{
+            .style-header{
+                font-weight: 700;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #ebeef5;
+            }
+            .style-form{
+                margin-top: 10px;
+            }
+        }
+    }
+}

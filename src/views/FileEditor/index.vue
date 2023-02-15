@@ -40,7 +40,7 @@
                 <!--头部工具区-->
                 <div class="ed-header toolbar-header">
                     <div class="toolbar-container">
-                        <am-toolbar v-if="engine" :engine="engine" :items="items" />
+                      <am-toolbar v-if="engine" :engine="engine" :items="items" />
                     </div>
                 </div>
                 <!--编辑区-->
@@ -90,6 +90,8 @@ import Engine, {
 import AmToolbar from "@aomao/toolbar-vue";
 import { getDocValue, setDocValue } from "/@/utils";//数据存储本地
 import { cards, plugins, pluginConfig, onLoad } from "./script/config";
+//数据
+import { inputItem,inputItemData} from './script/data';
 export default defineComponent({
   name: 'fileEditor',
   // 注册组件
@@ -173,17 +175,15 @@ export default defineComponent({
        if(key=="table"){//插入表格
           engine.value?.command.execute('table', 5, 5);
        }else if(key=="title"){//插入标题
-        let hrmlstr="<h2  style='text-indent: 2em; text-align: center;'>人员考核结果统计表 (替换)</h2>"
+        let hrmlstr=`<h2 style="text-indent: 2em; text-align: center;">人员考核结果统计表 <span style="color: rgb(245, 34, 45);">(替换)</span></h2>`
         const range =engine.value?.change.range.get()
         engine.value?.block.insert(hrmlstr,range,(node)=>node,true)
-       }else if(key=="input"){//文本输入框
+       }else if(key=="input"){//单行文本输入框
          engine.value?.command.execute('textinput');
-       }else if(key=="select"){//下拉选择
-         console.log("",key)
+       }else if(key=="textarea"){//多行行文本输入框
+         engine.value?.command.execute('textarea');
        }else if(key=="checkbox"){//复选框 
         engine.value?.command.execute('textcheckbox');
-       }else if(key=="radio"){//单选框
-        console.log("",key)
        }else if(key=="image"){//图片
         engine.value?.command.execute('textimage');
        }else if(key=="textsync"){//动态绑定数据
@@ -191,41 +191,47 @@ export default defineComponent({
        }
     }
     //时时获取组件数据
-    interface inputItem{
-        keyid:string | undefined;
-        type:string | undefined;
-        domid:string ;//节点id
-        value: string;
-        readuid: number;//绑定填写人0=不限制
-      }
-    const pluginData=ref<inputItem>()
+    const pluginData=ref<inputItem>(inputItemData)
     const getPluginList=()=>{
       var datalist=ref<inputItem[]>([])
       if (!engine.value) return;
       engine.value.card.components.forEach((card) => {
-          //输入框
+          //单行文本
           const inputdoc=<HTMLInputElement>document.getElementById(`input_${card.getValue().id}`)
           if(inputdoc){
             const inputValue  = (inputdoc).value;
-            datalist.value.push({keyid:card.getValue().id,type:"input",domid:(inputdoc).id,value:inputValue,readuid:12} )
+            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"input",domid:(inputdoc).id,value:inputValue})
+            datalist.value.push(pushdata)
+          }
+          //多行文本
+          const textareas=<HTMLInputElement>document.getElementById(`textarea_${card.getValue().id}`)
+          if(textareas){
+            const inputValue  = (textareas).value;
+            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"textarea",domid:(textareas).id,value:inputValue})
+            pushdata.style.width=parseInt(textareas.style.width)
+            pushdata.style.height=parseInt(textareas.style.height)
+            datalist.value.push(pushdata)
           }
           //复选框
           const textcheckbox=<HTMLInputElement>document.getElementById(`checkbox_${card.getValue().id}`)
           if(textcheckbox){
             const inputValue  = (textcheckbox).value;
-            datalist.value.push({keyid:card.getValue().id,type:"checkbox",domid:(textcheckbox).id,value:inputValue,readuid:12} )
+            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"checkbox",domid:(textcheckbox).id,value:inputValue})
+            datalist.value.push(pushdata)
           }
           //绑定数据
           const textsync=<HTMLInputElement>document.getElementById(`textsync_${card.getValue().id}`)
           if(textsync){
             const inputValue  = (textsync).dataset.value||"";
-            datalist.value.push({keyid:card.getValue().id,type:"textsync",domid:(textsync).id,value:inputValue,readuid:12} )
+            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"textsync",domid:(textsync).id,value:inputValue})
+            datalist.value.push(pushdata)
           }
           //图片、签名
           const textimage=<HTMLInputElement>document.getElementById(`image_${card.getValue().id}`)
           if(textimage){
             const inputValue  = (textimage).dataset.value||"";
-            datalist.value.push({keyid:card.getValue().id,type:"image",domid:(textimage).id,value:inputValue,readuid:12} )
+            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"image",domid:(textimage).id,value:inputValue})
+            datalist.value.push(pushdata)
           }
       });
       console.log('获取组件列表：', datalist.value)
@@ -238,15 +244,27 @@ export default defineComponent({
           const pluginDom=<HTMLInputElement>document.getElementById(item.domid)
           if(item.type=="input"){
              pluginDom.focus()
+          }else if(item.type=="textarea"){
+            pluginDom.focus()
           }else if(item.type=="checkbox"){
-            console.log("点击组件了",pluginDom)
-            console.log("点击checkbox:",pluginDom.checked)
             if(pluginDom.checked){
               pluginDom.value="1"
             }else{
               pluginDom.value="0"
             }
+          }else if(item.type=="textsync"){//动态数据
           }
+          //获取标题
+          if(!item.title){
+              const phtml=pluginDom?.parentNode?.parentNode?.parentNode
+              const textname=phtml?.previousSibling?.nodeValue
+              if(textname){
+                let strreplay=textname.trim()
+                strreplay=strreplay.replace(/:/g, "")
+                strreplay=strreplay.replace(/：/g, "")
+                item.title=strreplay||""
+              }
+            }
             console.log("点击组件了",item.type)
             // setValue(item,"RH-8484",pluginDom)//赋值
         })
@@ -260,7 +278,7 @@ export default defineComponent({
             $(`#${item.domid}`).attributes("style","")
             pluginDom.innerHTML=value
           }else{//空值-复原
-            $(`#${item.domid}`).attributes("style","padding:3px 10px;vertical-align:text-bottom;border:#d9d9d9 solid 1px;border-radius: 3px;user-select: none;cursor: pointer;")
+            $(`#${item.domid}`).attributes("style","padding:3px 5px;vertical-align:text-bottom;border:#d9d9d9 solid 1px;border-radius: 3px;user-select: none;cursor: pointer;")
             pluginDom.innerHTML=`<svg aria-hidden="true" style="width: 1em;height: 1em; position: relative;fill: currentColor;vertical-align: -2px;"><use xlink:href="#icon-bangding" :fill="color" /></svg> 绑定数据`
           }
         }else if(item.type=="input"){
