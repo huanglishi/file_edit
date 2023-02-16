@@ -12,6 +12,10 @@ export const PluginList =[
         {key:"textsync",icon:"icon-2dongtaiwenzi",color:"#409eff",name:"动态绑定数据"},
     ]},
 ]
+export interface styleImtm{
+    height:number ;//高
+    width:number ;//宽
+}
 //类型
 export interface inputItem{
     keyid:string ;//组件唯一id
@@ -27,7 +31,7 @@ export interface inputItem{
     authuserid:number,//授权用户id
     datafrom:string,//动态数据-数据来源于
     //样式
-    style:object,//组件样式
+    style: styleImtm,//组件样式
     bordertype:string,//组件样式边框类型all=框，bottom=底部边框，none=无边框
 }
 //示例数据
@@ -44,6 +48,9 @@ export const inputItemData ={
     permission:"all",
     authuserid:0,
     datafrom:"select",
-    style:{},
+    style:{
+        height:0,
+        width:0,
+    },
     bordertype:"all",
 }

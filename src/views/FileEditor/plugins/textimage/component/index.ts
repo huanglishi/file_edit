@@ -45,7 +45,7 @@ class Textimage extends Card{
         <use xlink:href="#icon-tianjiatupian_huaban" :fill="color" />
       </svg> 上传图片<span>`);
     }else{//阅读模式
-      this.#container = $(`<img id="image_${cardata.id}" style="min-width:110px;min-height:80px;max-width:150px;margin-bottom: -16px;" src="https://www.shijuepi.com/uploads/allimg/210818/1-210QP91537.jpg"/>`);
+      this.#container = $(`<img id="image_${cardata.id}" style="width:150px;margin-bottom: -16px;" src="https://www.shijuepi.com/uploads/allimg/210818/1-210QP91537.jpg"/>`);
     }
    
     return this.#container;

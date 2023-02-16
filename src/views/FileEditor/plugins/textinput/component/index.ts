@@ -39,7 +39,7 @@ class Textinput extends Card{
   render() {
     // 获取卡片的值
     const cardata=  this.getValue()
-    this.#container = $(`<input value="" id="input_${cardata.id}" style="min-width: 120px; width:100%; height: 30px;border-radius:0;border-top-width: 0px; border-left-width: 0px;border-right-width: 0px; border-bottom-width: 1px;border-color: #d9d9d9;" />`);
+    this.#container = $(`<input value="" id="input_${cardata.id}" style="width: 120px; height: 30px;border-radius:0;border-top-width: 0px; border-left-width: 0px;border-right-width: 0px; border-bottom-width: 1px;border-color: #d9d9d9;" />`);
     return this.#container;
   }
 

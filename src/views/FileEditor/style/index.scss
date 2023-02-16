@@ -106,6 +106,11 @@
         padding: 0;
         position: relative;
         overflow-x: hidden;
+        .savebtn{
+            position:fixed;
+            top: 60px;
+            right: 320px;
+        }
         .form-widget-container{
             background: #fafafa;
             background-color: #fafafa;
