@@ -47,7 +47,7 @@ class Textsync extends Card{
         </svg> 动态数据
       <span>`);
     }else{//阅读模式
-      this.#container = $(`<span id="textsync_${cardata.id}" >RH-333</span>`);
+      this.#container = $(`<span id="textsync_${cardata.id}" style=" display: inline-block;">RH-333</span>`);
     }
    
     return this.#container;

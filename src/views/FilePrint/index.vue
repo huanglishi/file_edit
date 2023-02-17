@@ -81,23 +81,10 @@
                  const pluginDom=<HTMLInputElement>document.getElementById(item.domid)
                  if(pluginDom){
                      if(item.type=="input"){
-                        pluginDom.value=item.value
-                        if(item.style.height&&item.style.height>0){
-                          changeStyle(item.style.height+"px","height",pluginDom)
-                        }
-                        if(item.style.width&&item.style.width>0){
-                          changeStyle(item.style.width+"px","width",pluginDom)
-                        }
-                        pluginDom.readOnly=true
+                        if(pluginDom.parentElement&&pluginDom.parentElement.parentElement)
+                        pluginDom.parentElement.parentElement.innerHTML=`<span style="width:${item.style.width}px;display: inline-block;border-bottom: 1px solid #d9d9d9;"> ${item.value||" "}</span>`
+                         console.log("input:",item)
                      }else if(item.type=="textarea"){
-                        //  if(item.style.height&&item.style.height>0){
-                        //      changeStyle(item.style.height+"px","height",pluginDom)
-                        //  }
-                        //  if(item.style.width&&item.style.width>0){
-                        //      changeStyle(item.style.width+"px","width",pluginDom)
-                        //  }
-                        //  pluginDom.value =item.value
-                        //  pluginDom.readOnly=true
                         if(pluginDom.parentElement)
                          pluginDom.parentElement.innerHTML=item.value
                      }else if(item.type=="checkbox"){
@@ -109,15 +96,16 @@
                         }else{
                             htmlstr=`<span style="width:${item.style.width}px;height:${item.style.height}px;position: relative;display: inline-block;vertical-align: text-bottom;border: 1px solid #000000;border-radius: 3px;" ></span>`
                         }
-                        if(pluginDom.parentElement)
-                        pluginDom.parentElement.innerHTML=htmlstr
+                        if(pluginDom.parentElement&&pluginDom.parentElement.parentElement)
+                        pluginDom.parentElement.parentElement.innerHTML=htmlstr
                      }else if(item.type=="image"){
                         if(pluginDom.parentElement)
                          pluginDom.parentElement.innerHTML=`<img id="image_${item.uuid}" style="width:150px;margin-bottom: -16px;" src="https://www.shijuepi.com/uploads/allimg/210818/1-210QP91537.jpg"/>`
                         //  pluginDom.innerHTML=`<img id="image_${item.uuid}" style="width:150px;margin-bottom: -16px;" src="https://www.shijuepi.com/uploads/allimg/210818/1-210QP91537.jpg"/>`
  
                      }else if(item.type=="textsync"){//动态数据
-                         pluginDom.innerText=item.value
+                        if(pluginDom.parentElement&&pluginDom.parentElement.parentElement)
+                        pluginDom.parentElement.parentElement.innerText=item.value
                      }
                     //事件
                    if(item.type=="image"){//放大图片
@@ -131,10 +119,6 @@
             })
          }
      });
-       //设置样式
-     const changeStyle=(val:any,keys:any,pluginDom:HTMLInputElement)=>{
-         pluginDom.style[keys]=val
-     }
      //打印预览
      const easyPrint = ref()
      const printFile=()=>{

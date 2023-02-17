@@ -284,6 +284,8 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
   //配置表格
   [Table.pluginName]: {
     //最小行高
-    rowMinHeight:15
+    rowMinHeight:15,
+    //一次最大插入的行/列
+    maxInsertNum:100,
   },
 };

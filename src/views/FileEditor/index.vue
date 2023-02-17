@@ -51,7 +51,7 @@
                             <div class="editor-container" :style="{height:winHeight+'px'}">
                               <!--保存按钮-->
                               <el-button type="primary" class="savebtn" @click="saveFileData" circle >
-                                 <el-icon><Position /></el-icon>
+                                存
                               </el-button>
                                 <div class="editor-content">
                                     <!--编辑器-->
@@ -84,7 +84,7 @@
 <script lang="ts"  >
 import { defineComponent, onMounted, reactive,ref,unref,nextTick, toRefs } from 'vue';
 import { ModuleList,ModuleSetting } from './component'
-import { Calendar,Memo,Position } from '@element-plus/icons-vue'
+import { Calendar,Memo } from '@element-plus/icons-vue'
 //编辑器
 import Engine, {
   $,
@@ -100,7 +100,7 @@ export default defineComponent({
   // 注册组件
   components: {
     ModuleList,ModuleSetting,
-    Calendar,Memo,Position,
+    Calendar,Memo,
     AmToolbar
   },
   setup() {
