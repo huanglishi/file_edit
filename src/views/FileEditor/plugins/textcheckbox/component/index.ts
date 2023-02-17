@@ -39,11 +39,11 @@ class Textcheckbox extends Card{
   render() {
     // 获取卡片的值
     const cardata=  this.getValue()
-    if(isEngine(this.editor)){//编辑状态
+    // if(isEngine(this.editor)){//编辑状态
       this.#container = $(`<input type="checkbox" value="0" id="checkbox_${cardata.id}"  class="ediecheckbox" style='width:20px;height:20px;vertical-align:text-bottom;' />`);
-    }else{//阅读模式
-      this.#container = $(`<span id="checkbox_${cardata.id}" style=" width:20px;height:20px;border: 1px solid #000;vertical-align:text-bottom;display: inline-table;"><span style="content: '';display: block;width: 4px;height: 7px;position:relative;top:4px;left:7px;border: solid #000;border-width: 0 2px 2px 0;transform: rotate(45deg);"></span></span>`);
-    }
+    // }else{//阅读模式
+    //  this.#container = $(`<span id="checkbox_${cardata.id}" style=" width:20px;height:20px;border: 1px solid #000;vertical-align:text-bottom;display: inline-table;"><span style="content: '';display: block;width: 4px;height: 7px;position:relative;top:4px;left:7px;border: solid #000;border-width: 0 2px 2px 0;transform: rotate(45deg);"></span></span>`);
+    // }
     return this.#container;
   }
 

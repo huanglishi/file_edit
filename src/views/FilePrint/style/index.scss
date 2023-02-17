@@ -1,0 +1,36 @@
+//外框
+.fw-box{
+    width: 100%;
+    .fw-content{
+
+    }
+}
+//编辑器
+.editor-container {
+    background: #fafafa;
+    background-color: #fafafa;
+    padding: 62px 0 64px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    .savebtn{
+        position:fixed;
+        top: 60px;
+        right: 120px;
+        z-index: 99;
+    }
+    .editor-content {
+        position: relative;
+        width:778px;
+        margin: 0 auto;
+        background: #fff;
+        min-height: 800px;
+    }
+    .editor-content .am-engine-view {
+        padding: 40px  30px;
+        margin: 0 auto;
+    }
+    .editor-mobile .editor-content .am-engine {
+        padding: 18px 0 0 0;
+    }
+  }

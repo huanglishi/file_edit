@@ -110,6 +110,7 @@
             position:fixed;
             top: 60px;
             right: 320px;
+            z-index: 99;
         }
         .form-widget-container{
             background: #fafafa;
@@ -130,30 +131,6 @@
         }
     }
 }
-//纵向A4
-.verticalA4{
-    /*需要将预览显示的界面限定在A4大小*/
-    width:210mm;
-    /*这个高度为什么不是A4的大小，是经过N次验证的方式得到的，唯一的目的就是为了保证预览和打印预览一致*/
-    /*可能是我写的有一点问题，但是如果设置为297，那么显示就会出现问题*/
-    height:340mm;
-    /*上下不要设置padding,否则打印预览下面的footer就会往上走*/   
-    padding: 0 24mm 0 24mm;
-    /* margin-bottom: 24mm; */
-    background-color: white;
-}
-//2横向A4
-.horizontalA4{
-    /*需要将预览显示的界面限定在A4大小*/
-    width:340mm;
-    /*这个高度为什么不是A4的大小，是经过N次验证的方式得到的，唯一的目的就是为了保证预览和打印预览一致*/
-    /*可能是我写的有一点问题，但是如果设置为297，那么显示就会出现问题*/
-    height:210mm;
-    /*上下不要设置padding,否则打印预览下面的footer就会往上走*/   
-    padding: 0 24mm 0 24mm;
-    /* margin-bottom: 24mm; */
-    background-color: white;
-}
 //编辑器
 
 .editor-container {
@@ -167,14 +144,14 @@
     position: relative;
     .editor-content {
         position: relative;
-        width: 812px;
+        width: 778px;
         margin: 0 auto;
         background: #fff;
         border: 1px solid #f0f0f0;
         min-height: 800px;
     }
     .editor-content .am-engine {
-        padding: 40px 60px 60px;
+        padding: 40px  30px;
     }
     .editor-mobile .editor-content .am-engine {
         padding: 18px 0 0 0;

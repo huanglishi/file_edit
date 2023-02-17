@@ -55,8 +55,7 @@
                               </el-button>
                                 <div class="editor-content">
                                     <!--编辑器-->
-                                    <div ref="container"   
-                                    ></div>
+                                    <div ref="container" id="editorContainer"></div>
                                 </div>
                             </div>
                          </div>
@@ -71,7 +70,7 @@
                     <el-tabs v-model="edit_type" class="ed-tabs" :stretch="false" style="height: 100%;width: 100%;overflow: hidden;">
                         <!--考虑动态组件-->
                         <el-tab-pane label="组件设置" name="module">
-                            <ModuleSetting :pluginData="pluginData"></ModuleSetting>
+                            <ModuleSetting :pluginData="pluginData" :show="showRightPlus"></ModuleSetting>
                         </el-tab-pane>
                         <!-- <el-tab-pane label="高级设置" name="template">
                             模板库
@@ -83,7 +82,7 @@
     </div>
 </template>
 <script lang="ts"  >
-import { defineComponent, onMounted, reactive,ref,nextTick, toRefs } from 'vue';
+import { defineComponent, onMounted, reactive,ref,unref,nextTick, toRefs } from 'vue';
 import { ModuleList,ModuleSetting } from './component'
 import { Calendar,Memo,Position } from '@element-plus/icons-vue'
 //编辑器
@@ -92,7 +91,7 @@ import Engine, {
   EngineInterface,
 } from "@aomao/engine";
 import AmToolbar from "@aomao/toolbar-vue";
-import { getDocValue, setDocValue } from "/@/utils";//数据存储本地
+import { getDocValue, setDocValue,setPluginValue } from "/@/utils";//数据存储本地
 import { cards, plugins, pluginConfig, onLoad } from "./script/config";
 //数据
 import { inputItem,inputItemData} from './script/data';
@@ -113,9 +112,10 @@ export default defineComponent({
     //动态数据变量
     const state = reactive<any>({
         editZoomRef: null, // 底部导航栏组件
-        doctpl_data:"",//文档模板样式数据-html
         timer:null,//定时器
     })
+    //是否处理组件编辑状态
+    const showRightPlus=ref(false)
     // 编辑器容器
     const container = ref<HTMLElement | null>(null);
     // 编辑器引擎
@@ -123,7 +123,9 @@ export default defineComponent({
      // 默认设置为当前在加载中
     const loading = ref(true);
     const fileTplData = ref();//模板数据
+    /*********************************************初始化编辑器*********** */
     onMounted(() => {
+      document.title="质量文件编辑器-制作表单"
       // 容器加载后实例化编辑器引擎
       if (container.value) {
         //实例化引擎
@@ -150,7 +152,6 @@ export default defineComponent({
         engineInstance.setValue(value, () => {
           loading.value = false;
         });
-
         // 监听编辑器值改变事件
         engineInstance.on("change", () => {//时时监听输入值
           const { value, paths } = engineInstance.command.executeMethod(
@@ -196,61 +197,78 @@ export default defineComponent({
         engine.value?.command.execute('textsync');
        }
     }
-    //时时获取组件数据
+    //编辑器内容改变-时时监听内容编号获取组件数据-并绑定值
     const pluginData=ref<inputItem>(inputItemData)
     var datalist=ref<inputItem[]>([])
     const getPluginList=()=>{
       if (!engine.value) return;
+      datalist.value=[]
+      let domlist=ref<HTMLInputElement[]>([])
       engine.value.card.components.forEach((card) => {
-          //单行文本
+          //1单行文本
           const inputdoc=<HTMLInputElement>document.getElementById(`input_${card.getValue().id}`)
           if(inputdoc){
+            domlist.value.push(inputdoc)
             const inputValue  = (inputdoc).value;
-            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"input",domid:(inputdoc).id,value:inputValue,
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"input",domid:(inputdoc).id,value:inputValue,
             style:{width:parseInt(inputdoc.style.width),height:parseInt(inputdoc.style.height)}
           })
             datalist.value.push(pushdata)
           }
-          //多行文本
+          //2多行文本
           const textareas=<HTMLInputElement>document.getElementById(`textarea_${card.getValue().id}`)
           if(textareas){
+            //dom
+            domlist.value.push(textareas)
             const inputValue  = (textareas).value;
-            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"textarea",domid:(textareas).id,value:inputValue,
-            style:{width:parseInt(textareas.style.width),height:parseInt(textareas.style.height)}
-          })
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"textarea",domid:(textareas).id,value:inputValue,
+              style:{width:parseInt(textareas.style.width),height:parseInt(textareas.style.height)},
+              bordertype:textareas.dataset.bordertype,
+            })
             datalist.value.push(pushdata)
+            //textarea高度自适应
+            textareas.addEventListener('input', (e:Event) => {
+                  textareas.style.height = (e.target as HTMLElement).scrollHeight + 'px';
+             });
           }
-          //复选框
+          //3复选框
           const textcheckbox=<HTMLInputElement>document.getElementById(`checkbox_${card.getValue().id}`)
           if(textcheckbox){
+            domlist.value.push(textcheckbox)
             const inputValue  = (textcheckbox).value;
-            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"checkbox",domid:(textcheckbox).id,value:inputValue,
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"checkbox",domid:(textcheckbox).id,value:inputValue,
             style:{width:parseInt(textcheckbox.style.width),height:parseInt(textcheckbox.style.height)}
           })
             datalist.value.push(pushdata)
           }
-          //绑定数据
+          //4绑定数据
           const textsync=<HTMLInputElement>document.getElementById(`textsync_${card.getValue().id}`)
           if(textsync){
+            domlist.value.push(textsync)
             const inputValue  = (textsync).dataset.value||"";
-            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"textsync",domid:(textsync).id,value:inputValue})
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"textsync",domid:(textsync).id,value:inputValue})
             datalist.value.push(pushdata)
           }
-          //图片、签名
+          //5图片、签名
           const textimage=<HTMLInputElement>document.getElementById(`image_${card.getValue().id}`)
           if(textimage){
+            domlist.value.push(textimage)
             const inputValue  = (textimage).dataset.value||"";
-            const pushdata=Object.assign({},inputItemData,{keyid:card.getValue().id||"",type:"image",domid:(textimage).id,value:inputValue,
-            style:{width:parseInt(textimage.style.width)}
-          })
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"image",domid:(textimage).id,value:inputValue,
+              style:{width:parseInt(textimage.style.width),marginBottom:parseInt(textimage.style.marginBottom)}
+            })
             datalist.value.push(pushdata)
           }
       });
+      //保存组件数据
       console.log('获取组件列表：', datalist.value)
       //为所有组件绑事件
       datalist.value.forEach((item)=>{
         // console.log('获取组件：', item)
+        //1点击事件监听
         $(`#${item.domid}`).on("click",(event)=>{
+          //显示编辑组件
+          showRightPlus.value=true
           //绑定点击组件数据
           pluginData.value=item
           const pluginDom=<HTMLInputElement>document.getElementById(item.domid)
@@ -278,9 +296,18 @@ export default defineComponent({
               }
             }
             console.log("点击组件了",item.type)
+            // console.log("测试",pluginDom.dataset.bordertype)
             // setValue(item,"RH-8484",pluginDom)//赋值
-        })
+        });
       })
+      //监听编辑器区域点击事件-获取点击组件外事件
+      $(`#editorContainer`).on("mousedown",(event)=>{
+        if(domlist.value.indexOf(event.target)==-1){
+          showRightPlus.value=false
+          console.log("8监听编辑器区域点击事件8")
+        }
+      });
+     
     }
     //--------------操作-组件设置----------
     //赋值动态数据-组件
@@ -301,8 +328,62 @@ export default defineComponent({
     }
     //保存数据
     const saveFileData=()=>{
-       console.log("保存模板数据",fileTplData.value)
-       console.log("保存组件数据",datalist.value)
+      //  console.log("保存模板数据",fileTplData.value)
+       const savelis=getPluginData()
+       console.log("保存组件数据2",savelis?.value)
+       setPluginValue(JSON.stringify(unref(savelis)))
+    }
+    const getPluginData=()=>{
+      const mdatalist=ref<inputItem[]>([])
+      if (!engine.value) return mdatalist;
+      engine.value.card.components.forEach((card) => {
+          //1单行文本
+          const inputdoc=<HTMLInputElement>document.getElementById(`input_${card.getValue().id}`)
+          if(inputdoc){
+            const inputValue  = (inputdoc).value;
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"input",domid:(inputdoc).id,value:inputValue,
+            style:{width:parseInt(inputdoc.style.width),height:parseInt(inputdoc.style.height)}
+          })
+          mdatalist.value.push(pushdata)
+          }
+          //2多行文本
+          const textareas=<HTMLInputElement>document.getElementById(`textarea_${card.getValue().id}`)
+          if(textareas){
+            //dom
+            const inputValue  = (textareas).value;
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"textarea",domid:(textareas).id,value:inputValue,
+              style:{width:parseInt(textareas.style.width),height:parseInt(textareas.style.height)},
+              bordertype:textareas.dataset.bordertype,
+            })
+            mdatalist.value.push(pushdata)
+          }
+          //3复选框
+          const textcheckbox=<HTMLInputElement>document.getElementById(`checkbox_${card.getValue().id}`)
+          if(textcheckbox){
+            const inputValue  = (textcheckbox).value;
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"checkbox",domid:(textcheckbox).id,value:inputValue,
+            style:{width:parseInt(textcheckbox.style.width),height:parseInt(textcheckbox.style.height)}
+          })
+          mdatalist.value.push(pushdata)
+          }
+          //4绑定数据
+          const textsync=<HTMLInputElement>document.getElementById(`textsync_${card.getValue().id}`)
+          if(textsync){
+            const inputValue  = (textsync).dataset.value||"";
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"textsync",domid:(textsync).id,value:inputValue})
+            mdatalist.value.push(pushdata)
+          }
+          //5图片、签名
+          const textimage=<HTMLInputElement>document.getElementById(`image_${card.getValue().id}`)
+          if(textimage){
+            const inputValue  = (textimage).dataset.value||"";
+            const pushdata=Object.assign({},inputItemData,{uuid:card.getValue().id||"",type:"image",domid:(textimage).id,value:inputValue,
+              style:{width:parseInt(textimage.style.width),marginBottom:parseInt(textimage.style.marginBottom)}
+            })
+            mdatalist.value.push(pushdata)
+          }
+      });
+      return mdatalist;
     }
     return {
       ...toRefs(state),
@@ -325,6 +406,7 @@ export default defineComponent({
       //编辑器
       container,engine,loading,
       insertComponent,pluginData,
+      showRightPlus,
     };
   },
 });

@@ -76,13 +76,6 @@
     codemirror "^5.60.0"
     lodash "^4.17.21"
 
-"@aomao/plugin-file@^2.9":
-  version "2.9.31"
-  resolved "https://repo.huaweicloud.com/repository/npm/@aomao/plugin-file/-/plugin-file-2.9.31.tgz#6c222587e5975b2235d9ffcdcb8c6d89f20e0d5f"
-  integrity sha512-6BlTLvdSyka0GqDyvs73+RtE0uBsCdjfxryedDxoL/wdaMYi5384SGBku6qpuedIEBBWsVezIm/HTM6ZPLsF5w==
-  dependencies:
-    "@babel/runtime" "^7.13.10"
-
 "@aomao/plugin-fontcolor@^2.9":
   version "2.9.27"
   resolved "https://repo.huaweicloud.com/repository/npm/@aomao/plugin-fontcolor/-/plugin-fontcolor-2.9.27.tgz#61bdc07fa661d7d6db3129a6fe4414f1c6b1839e"
@@ -270,14 +263,6 @@
     lodash "^4.17.21"
     tinycolor2 "^1.4.2"
 
-"@aomao/plugin-tasklist@^2.9":
-  version "2.9.29"
-  resolved "https://repo.huaweicloud.com/repository/npm/@aomao/plugin-tasklist/-/plugin-tasklist-2.9.29.tgz#bf59a5bc226cad4e987829c8164421e46ff65630"
-  integrity sha512-3ATum5Up9QJ6QZg3rcf8bJ0LZQBTFjGQWpoWlimkJdzTNK1kaDWEKoc3Eh6bcjWkkhidqTz0N8sUhdG8N3YSXg==
-  dependencies:
-    "@babel/runtime" "^7.13.10"
-    markdown-it "^13.0.1"
-
 "@aomao/plugin-underline@^2.9":
   version "2.9.27"
   resolved "https://repo.huaweicloud.com/repository/npm/@aomao/plugin-underline/-/plugin-underline-2.9.27.tgz#9df8f7e17b94b4edc1a435bbf49a75a2191f32e5"
@@ -309,7 +294,7 @@
     lodash "^4.17.21"
     tinycolor2 "^1.4.2"
 
-"@babel/parser@^7.16.4":
+"@babel/parser@^7.16.4", "@babel/parser@^7.18.4":
   version "7.20.15"
   resolved "https://repo.huaweicloud.com/repository/npm/@babel/parser/-/parser-7.20.15.tgz#eec9f36d8eaf0948bb88c87a46784b5ee9fd0c89"
   integrity sha512-DI4a1oZuf8wC+oAJA9RW6ga3Zbe8RZFt7kD9i4qAspz3I/yHet1VvC3DiSy/fsUvv5pvJuNPh0LPOdCcqinDPg==
@@ -598,6 +583,15 @@
     "@vue/compiler-core" "3.2.47"
     "@vue/shared" "3.2.47"
 
+"@vue/compiler-sfc@2.7.14":
+  version "2.7.14"
+  resolved "https://repo.huaweicloud.com/repository/npm/@vue/compiler-sfc/-/compiler-sfc-2.7.14.tgz#3446fd2fbb670d709277fc3ffa88efc5e10284fd"
+  integrity sha512-aNmNHyLPsw+sVvlQFQ2/8sjNuLtK54TC6cuKnVzAY93ks4ZBrvwQSnkkIh7bsbNhum5hJBS00wSDipQ937f5DA==
+  dependencies:
+    "@babel/parser" "^7.18.4"
+    postcss "^8.4.14"
+    source-map "^0.6.1"
+
 "@vue/compiler-sfc@3.2.47", "@vue/compiler-sfc@^3.2.45":
   version "3.2.47"
   resolved "https://repo.huaweicloud.com/repository/npm/@vue/compiler-sfc/-/compiler-sfc-3.2.47.tgz#1bdc36f6cdc1643f72e2c397eb1a398f5004ad3d"
@@ -825,6 +819,11 @@ csstype@^2.6.8:
   version "2.6.21"
   resolved "https://repo.huaweicloud.com/repository/npm/csstype/-/csstype-2.6.21.tgz#2efb85b7cc55c80017c66a5ad7cbd931fda3a90e"
   integrity sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==
+
+csstype@^3.1.0:
+  version "3.1.1"
+  resolved "https://repo.huaweicloud.com/repository/npm/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
+  integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
 dayjs@^1.10.5, dayjs@^1.11.3:
   version "1.11.7"
@@ -1242,7 +1241,7 @@ pify@^4.0.1:
   resolved "https://repo.huaweicloud.com/repository/npm/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
-postcss@^8.1.10, postcss@^8.4.21:
+postcss@^8.1.10, postcss@^8.4.14, postcss@^8.4.21:
   version "8.4.21"
   resolved "https://repo.huaweicloud.com/repository/npm/postcss/-/postcss-8.4.21.tgz#c639b719a57efc3187b13a1d765675485f4134f4"
   integrity sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg==
@@ -1384,6 +1383,13 @@ vue-demi@*:
   resolved "https://repo.huaweicloud.com/repository/npm/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
 
+vue-easy-print@^0.0.8:
+  version "0.0.8"
+  resolved "https://repo.huaweicloud.com/repository/npm/vue-easy-print/-/vue-easy-print-0.0.8.tgz#f093093a3bae6dc84b9ea610e05166f518c9e084"
+  integrity sha512-QF3CJvWkAWP8BSaxdIrmGASkkuNX3bDUXyWx7/rE8DGGShP20Ap2H0P1w5oKqgN7pJcHH8ZywdvhQk7ggp0Z4w==
+  dependencies:
+    vue "^2.5.11"
+
 vue-i18n@^9.2.2:
   version "9.2.2"
   resolved "https://repo.huaweicloud.com/repository/npm/vue-i18n/-/vue-i18n-9.2.2.tgz#aeb49d9424923c77e0d6441e3f21dafcecd0e666"
@@ -1423,6 +1429,14 @@ vue-types@^3.0.0:
   integrity sha512-IwUC0Aq2zwaXqy74h4WCvFCUtoV0iSWr0snWnE9TnU18S66GAQyqQbRf2qfJtUuiFsBf6qp0MEwdonlwznlcrw==
   dependencies:
     is-plain-object "3.0.1"
+
+vue@^2.5.11:
+  version "2.7.14"
+  resolved "https://repo.huaweicloud.com/repository/npm/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17"
+  integrity sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ==
+  dependencies:
+    "@vue/compiler-sfc" "2.7.14"
+    csstype "^3.1.0"
 
 vue@^3.2.45:
   version "3.2.47"

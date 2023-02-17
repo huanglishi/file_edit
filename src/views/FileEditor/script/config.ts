@@ -35,7 +35,7 @@ import Link from "@aomao/plugin-link-vue";
 import Codeblock, { CodeBlockComponent } from "@aomao/plugin-codeblock-vue";
 import Image, { ImageComponent, ImageUploader } from "@aomao/plugin-image";
 import Table, { TableComponent } from "@aomao/plugin-table";
-import File, { FileComponent, FileUploader } from "@aomao/plugin-file";
+// import File, { FileComponent, FileUploader } from "@aomao/plugin-file";
 import Math, { MathComponent } from "@aomao/plugin-math";
 import Fontfamily from "@aomao/plugin-fontfamily";
 import Status, { StatusComponent } from "@aomao/plugin-status";
@@ -91,8 +91,8 @@ export const plugins: Array<PluginEntry> = [
   Image,
   ImageUploader,
   Table,
-  File,
-  FileUploader,
+  // File,
+  // FileUploader,
   Math,
   ToolbarPlugin,
   Fontfamily,
@@ -114,7 +114,7 @@ export const cards: Array<CardEntry> = [
   CodeBlockComponent,
   ImageComponent,
   TableComponent,
-  FileComponent,
+  // FileComponent,
   MathComponent,
   ToolbarComponent,
   StatusComponent,
@@ -191,9 +191,9 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
     },
     isRemote: (src: string) => src.indexOf(DOMAIN) < 0,
   },
-  [FileUploader.pluginName]: {
-    action: `${DOMAIN}/upload/file`,
-  },
+  // [FileUploader.pluginName]: {
+  //   action: `${DOMAIN}/upload/file`,
+  // },
   [Math.pluginName]: {
     action: `https://g.yanmao.cc/latex`,
     parse: (res: any) => {

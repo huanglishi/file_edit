@@ -1,24 +1,25 @@
 //组件数据
 export const PluginList =[
     {id:"layout",title:"布局组件",block:[
-        {key:"title",icon:"icon-biaoti",color:"", name:"标题"},
-        {key:"table",icon:"icon-biaodanzujian-biaoge",color:"",name:"表格"},
+        {key:"title",icon:"icon-biaoti",color:"", name:"文件标题"},
+        {key:"table",icon:"icon-biaodanzujian-biaoge",color:"",name:"文件表格"},
     ]},
     {id:"form",title:"表单组件",block:[
         {key:"input",icon:"icon-wenbenkuang",color:"",name:"单行文本框"},
         {key:"textarea",icon:"icon-a-73textarea",color:"",name:"多行文本框"},
         {key:"checkbox",icon:"icon-fuxuankuang-true",color:"",name:"复选框"},
         {key:"image",icon:"icon-fujiaqianming",color:"",name:"图片/签名"},
-        {key:"textsync",icon:"icon-2dongtaiwenzi",color:"#409eff",name:"动态绑定数据"},
+        {key:"textsync",icon:"icon-2dongtaiwenzi",color:"#409eff",name:"动态数据"},
     ]},
 ]
 export interface styleImtm{
     height:number ;//高
     width:number ;//宽
+    marginBottom:number ;//水平对齐
 }
 //类型
 export interface inputItem{
-    keyid:string ;//组件唯一id
+    uuid:string ;//组件唯一id
     type:string ;//组件类型
     domid:string ;//组件节点id
     value: string;//组件值
@@ -36,7 +37,7 @@ export interface inputItem{
 }
 //示例数据
 export const inputItemData ={
-    keyid:"",
+    uuid:"",
     type:"",
     domid:"",
     value:"",
@@ -51,6 +52,7 @@ export const inputItemData ={
     style:{
         height:0,
         width:0,
+        marginBottom:-16,
     },
     bordertype:"all",
 }

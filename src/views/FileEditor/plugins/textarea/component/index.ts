@@ -39,7 +39,7 @@ class Textarea extends Card{
   render() {
     // 获取卡片的值
     const cardata=  this.getValue()
-    this.#container = $(`<textarea id="textarea_${cardata.id}" style="overflow: auto;resize: none;width:90px;height:60px;border: #d9d9d9 1px solid;"></textarea>`);
+    this.#container = $(`<textarea id="textarea_${cardata.id}" data-bordertype="all" type="textarea" style="overflow: auto;resize: none;width:90px;height:60px;border: #d9d9d9 1px solid;min-height:60px;"></textarea>`);
     return this.#container;
   }
 
