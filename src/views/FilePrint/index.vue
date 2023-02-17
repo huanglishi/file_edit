@@ -83,7 +83,6 @@
                      if(item.type=="input"){
                         if(pluginDom.parentElement&&pluginDom.parentElement.parentElement)
                         pluginDom.parentElement.parentElement.innerHTML=`<span style="width:${item.style.width}px;display: inline-block;border-bottom: 1px solid #d9d9d9;"> ${item.value||" "}</span>`
-                         console.log("input:",item)
                      }else if(item.type=="textarea"){
                         if(pluginDom.parentElement)
                          pluginDom.parentElement.innerHTML=item.value
@@ -99,9 +98,9 @@
                         if(pluginDom.parentElement&&pluginDom.parentElement.parentElement)
                         pluginDom.parentElement.parentElement.innerHTML=htmlstr
                      }else if(item.type=="image"){
+                        console.log("input:",item)
                         if(pluginDom.parentElement)
-                         pluginDom.parentElement.innerHTML=`<img id="image_${item.uuid}" style="width:150px;margin-bottom: -16px;" src="https://www.shijuepi.com/uploads/allimg/210818/1-210QP91537.jpg"/>`
-                        //  pluginDom.innerHTML=`<img id="image_${item.uuid}" style="width:150px;margin-bottom: -16px;" src="https://www.shijuepi.com/uploads/allimg/210818/1-210QP91537.jpg"/>`
+                         pluginDom.parentElement.innerHTML=`<img id="image_${item.uuid}" style="width:${item.style.width}px;margin-bottom: ${item.style.marginBottom}px;" src="https://www.shijuepi.com/uploads/allimg/210818/1-210QP91537.jpg"/>`
  
                      }else if(item.type=="textsync"){//动态数据
                         if(pluginDom.parentElement&&pluginDom.parentElement.parentElement)
