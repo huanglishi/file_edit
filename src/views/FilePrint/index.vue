@@ -20,7 +20,7 @@
  </template>
  <script lang="ts"  >
  import { defineComponent, onMounted, reactive,ref,nextTick, toRefs } from 'vue';
- import { getDocValue, getPluginValue} from "/@/utils";//数据存储本地
+ import { getDocValue, getPluginValue} from "../FileEditor/script/index";//数据存储本地
  import { cards, plugins, pluginConfig } from "../FileEditor/script/config";
  //数据
  import { inputItem,inputItemData} from '../FileEditor/script/data';
@@ -55,7 +55,7 @@
      // 默认设置为当前在加载中
      const loading = ref(true);
      onMounted(() => {
-         document.title="质量文件编辑器-打印预览表端"
+         document.title="质量文件编辑器-打印预览表端1"
        // 容器加载后实例化编辑器引擎
        if (container.value) {
              //实例化引擎
@@ -69,11 +69,7 @@
              });
              const value = getDocValue() || "";
              // 非协同编辑，设置编辑器值，异步渲染后回调
-             engineInstance.render(value,true);
-             engineInstance.trigger("render")
-             engineInstance.on("render", () => {
-                 alert(9)
-             })
+             engineInstance.render(value);
              //监听渲染完成
             nextTick(()=>{
              setTimeout(() => {
@@ -82,7 +78,7 @@
                  if(pluginDom){
                      if(item.type=="input"){
                         if(pluginDom.parentElement&&pluginDom.parentElement.parentElement)
-                        pluginDom.parentElement.parentElement.innerHTML=`<span style="width:${item.style.width}px;display: inline-block;border-bottom: 1px solid #d9d9d9;"> ${item.value||" "}</span>`
+                        pluginDom.parentElement.parentElement.innerHTML=`<span style="width:${item.style.width}px;min-height: 26px;display: inline-block;border-bottom: 1px solid #d9d9d9;margin-bottom: -6px;"> ${item.value||'<span style="opacity:0;">-</span>'}</span>`
                      }else if(item.type=="textarea"){
                         if(pluginDom.parentElement)
                          pluginDom.parentElement.innerHTML=item.value
@@ -90,7 +86,7 @@
                         let htmlstr=""
                         if(item.value&&parseInt(item.value)==1){
                             htmlstr=`<span style="width:${item.style.width}px;height:${item.style.height}px;position: relative;display: inline-block;vertical-align: text-bottom;border: 1px solid #000000;border-radius: 3px;" >
-                                <i style=" content: ''; width: ${item.style.height/2}px; height: ${item.style.height/3}px; border-left: 1px solid #000000; border-bottom: 1px solid #000000; position: absolute;  top: 3px;left: 3px;transform: rotate(-45deg);"></i>
+                                <i style=" content: ''; width: ${item.style.height/2}px;height: ${item.style.height/3}px; border-left: 1px solid #000000; border-bottom: 1px solid #000000; position: absolute;  top: 3px;left: 3px;transform: rotate(-45deg);"></i>
                                 </span>`
                         }else{
                             htmlstr=`<span style="width:${item.style.width}px;height:${item.style.height}px;position: relative;display: inline-block;vertical-align: text-bottom;border: 1px solid #000000;border-radius: 3px;" ></span>`

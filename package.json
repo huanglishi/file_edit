@@ -45,9 +45,9 @@
     "@aomao/plugin-unorderedlist": "^2.9",
     "@aomao/toolbar-vue": "^2.9",
     "ant-design-vue": "^3.2.12",
+    "vue-easy-print": "^0.0.8",
     "element-plus": "^2.2.29",
     "vue": "^3.2.45",
-    "vue-easy-print": "^0.0.8",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.0.0-0"
   },

@@ -166,6 +166,15 @@
             <el-form-item label="标题">
                <el-input v-model="pluginData.title" placeholder="用于区分控件（选填）" clearable/>
             </el-form-item>
+            <el-form-item label="图片来源">
+              <el-radio-group v-model="pluginData.inputtype" size="small">
+                  <el-radio border label="write" style="margin-right: 13px;">手动上传</el-radio>
+                  <el-radio border label="select" >选择数据</el-radio>
+                </el-radio-group>
+            </el-form-item>
+            <el-form-item label="选择数据" v-if="pluginData.inputtype=='select'">
+              <el-input v-model="pluginData.dataid" placeholder="选择的数据源"/>
+            </el-form-item>
             <div class="style-setting">
               <div class="style-header">
                 图片的尺寸/位置

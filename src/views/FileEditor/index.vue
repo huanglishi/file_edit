@@ -91,7 +91,7 @@ import Engine, {
   EngineInterface,
 } from "@aomao/engine";
 import AmToolbar from "@aomao/toolbar-vue";
-import { getDocValue, setDocValue,setPluginValue } from "/@/utils";//数据存储本地
+import { getDocValue, setDocValue,setPluginValue } from "./script/index";//数据存储本地
 import { cards, plugins, pluginConfig, onLoad } from "./script/config";
 //数据
 import { inputItem,inputItemData} from './script/data';
@@ -275,6 +275,8 @@ export default defineComponent({
           if(item.type=="input"){
              pluginDom.focus()
           }else if(item.type=="textarea"){
+            event.preventDefault();
+            event.stopPropagation();
             pluginDom.focus()
           }else if(item.type=="checkbox"){
             if(pluginDom.checked){

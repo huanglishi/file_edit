@@ -13,7 +13,6 @@
     width: 100%;
     margin: 0 auto;
     overflow: auto;
-    position: relative;
     .savebtn{
         position:fixed;
         top: 60px;
@@ -21,11 +20,9 @@
         z-index: 99;
     }
     .editor-content {
-        position: relative;
-        width: 778px;
+        width: 779px;
         margin: 0 auto;
         background: #fff;
-        border: 1px solid #f0f0f0;
         min-height: 800px;
     }
     .editor-content .am-engine-view {
@@ -33,5 +30,24 @@
     }
     .editor-mobile .editor-content .am-engine {
         padding: 18px 0 0 0;
+    }
+  }
+  :deep(.el-dialog__header){
+    background:transparent;
+  }
+  .upbox{
+    .viewbox{
+         position: relative;
+         .del{
+            position: absolute;
+            top:0px;
+            right:0px;
+         }
+        .imgbox{
+            width: 350px;
+        }
+    }
+    .upload-kj{
+
     }
   }
