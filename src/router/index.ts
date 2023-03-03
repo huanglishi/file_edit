@@ -22,6 +22,16 @@ const routes: Array<RouteRecordRaw> = [
     name: "fp",
     component:() => import('/@/views/FilePrint/index.vue'),
   },
+  {
+    path: "/cp",
+    name: "cp",
+    component:() => import('/@/views/cprint/index.vue'),
+  },
+  {
+    path: "/home",
+    name: "home",
+    component:() => import('/@/views/Home.vue'),
+  },
 ];
 
 const router = createRouter({

@@ -5,6 +5,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "strict": true,
+    "allowJs": true,
     "jsx": "preserve",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -18,7 +19,7 @@
     "types": ["vite/client"] /* Type declaration files to be included in compilation. */,
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/views/cprint/cPrint.js"],
   "exclude": ["node_modules", "dist"], 
   "references": [{ "path": "./tsconfig.node.json" }]
 }

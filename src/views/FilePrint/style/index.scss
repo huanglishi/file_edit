@@ -32,3 +32,115 @@
         padding: 18px 0 0 0;
     }
   }
+  :deep(.data-table-reader .data-table){
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+ }
+  :deep(.data-table-reader .data-table tr td){
+    border: 1px solid rgb(4 4 4);
+    border-top: none;
+    border-left: none;
+ }
+//打印头
+.pagehinde{
+     display: none;
+}
+ @media print {
+    .pagehinde{
+        display: block;
+    }
+    .headerbox{
+        display: flex;
+    }
+    //页码
+    @page {
+        @bottom-right {
+         content: counter(page)" of" counter(pages);
+        }
+     }
+    @page {
+        size: A4;
+        // 此处调整使其只显示页脚中的页码，具体根据页面调整
+        margin: 10mm 16mm;
+        margin-bottom: 8mm;
+        margin-top: 8mm;
+    }
+    //分页
+    .table_page{
+        &:after{
+            display: block;
+            content: "Number of pages: " counter(page);
+        }
+        .page-number:after{
+            counter-increment: page;
+            content:counter(page);
+        }
+    }
+ }
+ .pagefooter{
+    width: 100%;
+ }
+ .footerpiontion{
+    text-align: center;
+ }
+ //浏览器打印
+ .headerbox{
+    height: 80px;
+    padding-bottom: 10px;
+    .left{
+        flex:1;
+        text-align: left;
+        .headertable{
+            tr td{
+                font-size: 12px;
+                padding: 5px 10px;
+                border: 1px solid rgb(4 4 4);
+            }
+        }
+    }
+    .right{
+        img{
+        height: 100%;
+       }
+    }
+ }
+ //导出pdf
+ .pdf-headerbox{
+    max-height: 80px;
+    display: flex;
+    width: 100%;
+    padding: 0px 40px;
+    .left{
+        flex:1;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        .headertable{
+            border-collapse: separate;
+            border-spacing: 0;
+            border-top: 1px solid #000000;
+            border-left: 1px solid #000000;
+            td{
+                padding: 5px 10px;
+                border: 1px solid #000000;
+                border-top: none;
+                border-left: none;
+            }
+        }
+    }
+    .right{
+        text-align: right;
+        img{
+        height: 100%;
+       }
+    }
+ }
+ .print_font{
+    white-space: normal;
+    color: #262626;
+    word-wrap: break-word;
+    font-size: 15px;
+    line-height: 1.74;
+    letter-spacing: .05em;
+    font-family: 'Chinese Quote', 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji';
+ }

@@ -12,7 +12,6 @@
     padding: 62px 0 64px;
     width: 100%;
     margin: 0 auto;
-    overflow: auto;
     .savebtn{
         position:fixed;
         top: 60px;
@@ -20,38 +19,26 @@
         z-index: 99;
     }
     .editor-content {
-        width: 779px;
+        width:779px;
         margin: 0 auto;
         background: #fff;
         min-height: 800px;
     }
     .editor-content .am-engine-view {
         padding: 40px  30px;
+        margin: 0 auto;
     }
     .editor-mobile .editor-content .am-engine {
         padding: 18px 0 0 0;
     }
   }
-  :deep(.el-dialog__header){
-    background:transparent;
-  }
-  .upbox{
-    .viewbox{
-         position: relative;
-         .del{
-            position: absolute;
-            top:0px;
-            right:0px;
-         }
-        .imgbox{
-            width: 350px;
-        }
-    }
-    .upload-kj{
-
-    }
-  }
-
+  :deep(.data-table-reader .data-table){
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+ }
   :deep(.data-table-reader .data-table tr td){
     border: 1px solid rgb(4 4 4);
+    // border-top: none;
+    // border-left: none;
  }
+//打印头
