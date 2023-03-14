@@ -102,7 +102,7 @@
  import { getDocValue, getPluginValue} from "../FileEditor/script/index";//数据存储本地
  import { cards, plugins, pluginConfig } from "../FileEditor/script/config";
  //数据
- import { inputItem,inputItemData} from '../FileEditor/script/data';
+ import { inputItem} from '../FileEditor/script/data';
  //打印
  import vueEasyPrint from 'vue-easy-print'
  
@@ -197,7 +197,7 @@
      //打印预览
      const easyPrint = ref()
      const printFile=()=>{
-        // handleOutput()
+        handleOutput()
         // if(easyPrint.value)
         //  easyPrint.value.print()
      }

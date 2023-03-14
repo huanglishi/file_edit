@@ -28,6 +28,16 @@ const routes: Array<RouteRecordRaw> = [
     component:() => import('/@/views/cprint/index.vue'),
   },
   {
+    path: "/pp",
+    name: "pp",
+    component:() => import('/@/views/pagePrint/index.vue'),
+  },
+  {
+    path: "/pe",
+    name: "pe",
+    component:() => import('/@/views/pageEditor/index.vue'),
+  },
+  {
     path: "/home",
     name: "home",
     component:() => import('/@/views/Home.vue'),

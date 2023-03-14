@@ -1,0 +1,209 @@
+.edit-box{
+    width: 100%;
+    height: 100%;
+    border: 2px dotted #EBEEF5;
+    margin: -2px;
+    background-color: #fff;
+}
+.ed-container{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    flex-basis: auto;
+    box-sizing: border-box;
+    min-width: 0; 
+}
+ //公共
+ .ed-scrollbar{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.is-vertical{
+    flex-direction: column;
+}
+.ed-header{
+    --el-header-padding: 0 20px;
+    --el-header-height: 60px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+.ed-main{
+    --el-main-padding: 20px;
+    display: block;
+    flex: 1;
+    flex-basis: auto;
+    overflow: auto;
+    box-sizing: border-box;
+}
+//左边
+.ed-aside{
+    margin: 0;
+    padding: 0;
+    background: inherit;
+}
+.left-panel{
+    width: 260px!important;
+    overflow-y: hidden;
+   .ed-scrollbar-wrap{
+        overflow: auto;
+        height: 100%;
+        max-height: 100%;
+        overflow-x: hidden;
+        .ed-scrollbar-view{
+            height: 100%;
+            .panel-container{
+                padding-bottom: 10px;
+            }
+        }
+   }
+   //组件列表
+   .module-list-box{
+    width: 100%;
+   }
+}
+//tabs标签
+.ed-tabs > .el-tabs__content {
+    padding: 32px;
+    color: #6b778c;
+    font-size: 32px;
+    font-weight: 600;
+  }
+  :deep(.el-tabs__nav-scroll){
+    padding: 0 20px;
+  }
+  .ed-tabs .custom-tabs-label .el-icon {
+    vertical-align: middle;
+  }
+  .ed-tabs .custom-tabs-label span {
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+//中间编辑区
+.center-layout-container{
+    min-width: 680px;
+    flex: 1;
+    border-left: 2px dotted #EBEEF5;
+    border-right: 2px dotted #EBEEF5;  
+    .toolbar-header{
+        font-size: 14px;
+        border-bottom: 1px dotted #CCCCCC;
+        height: 42px!important;
+        .toolbar-container{
+            width: 100%;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .editor-toolbar{
+                border:0px;
+            }
+        }
+    }
+    //编辑区
+    .form-widget-main{
+        padding: 0;
+        position: relative;
+        overflow-x: hidden;
+        width: 100%;
+        background: #f3f5f7;
+        .form-widget-container{
+            background: transparent;
+            overflow: auto;
+            width: 100%;
+            height: 100%;
+            display: inline-flex;
+        }
+    }
+}
+//编辑器
+.editor-container-box {
+    width: 809.656px;
+    margin: 0 auto;
+    padding: 12px 8px 10px;
+    margin-bottom: 20px;
+    .editor-content {
+        position: relative;
+        background: #fff;
+        margin-bottom: 20px;
+        .editor-page-list{
+            position: absolute;
+            top: 0;
+            z-index: 33;
+            pointer-events: none;
+            // background: #fff;
+            .editor-logic-page{
+                width: 793.667px;
+                height: 1122.53px;
+                box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 10px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px;
+                .header-page{
+                    pointer-events: auto;
+                    width: 100%;
+                    background: #fff;
+                    height: 100px;
+                }
+            }
+            .melo-page-gap {
+                background: #f3f5f7;
+                z-index:99999999;
+                cursor: url("data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8'%3f%3e %3csvg width='24px' height='24px' viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e %3ctitle%3eICON/bottombar/paging%3c/title%3e %3cg id='ICON/bottombar/paging' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3e %3cg id='Word-%e5%ba%95%e9%83%a8%e6%a0%8f-%e5%88%86%e9%a1%b5'%3e %3cg id='Group%e5%a4%8d%e5%88%b6-3' opacity='0' fill='black' fill-rule='nonzero'%3e %3crect id='Rectangle' opacity='0.0599999987' x='0' y='0' width='24' height='24'%3e%3c/rect%3e %3crect id='Rectangle' opacity='0.100000001' x='3' y='3' width='18' height='18'%3e%3c/rect%3e %3crect id='Rectangle' opacity='0.119999997' x='4' y='4' width='16' height='16'%3e%3c/rect%3e %3c/g%3e %3cpath d='M6.25%2c14 L6.25%2c16 L6.25%2c17.75 L17.75%2c17.75 L17.75%2c16 L17.75%2c14 L19%2c14 L19%2c18.5 C19%2c18.7761424 18.7761424%2c19 18.5%2c19 L5.5%2c19 C5.22385763%2c19 5%2c18.7761424 5%2c18.5 L5%2c14 L6.25%2c14 Z' id='%e5%bd%a2%e7%8a%b6%e7%bb%93%e5%90%88%e5%a4%8d%e5%88%b6' fill='%23464D5A' transform='translate(12.000000%2c 16.500000) scale(-1%2c 1) rotate(-180.000000) translate(-12.000000%2c -16.500000) '%3e%3c/path%3e %3crect id='%e7%9f%a9%e5%bd%a2' fill='%23464D5A' x='3' y='11.25' width='18' height='1.25'%3e%3c/rect%3e %3cpath d='M6.25%2c5 L6.25%2c7 L6.25%2c8.75 L17.75%2c8.75 L17.75%2c7 L17.75%2c5 L19%2c5 L19%2c9.5 C19%2c9.77614237 18.7761424%2c10 18.5%2c10 L5.5%2c10 C5.22385763%2c10 5%2c9.77614237 5%2c9.5 L5%2c5 L6.25%2c5 Z' id='%e5%bd%a2%e7%8a%b6%e7%bb%93%e5%90%88' fill='%23464D5A'%3e%3c/path%3e %3c/g%3e %3c/g%3e %3c/svg%3e") 15 15,auto;
+            }
+        }
+        .am-engine{
+            position: absolute;
+            top: 0;
+            width: 793.667px;
+            background: transparent;
+            padding: 40px;
+            z-index: 19;
+        }
+    }
+    .editor-content .am-engine {
+        // padding: 40px  30px;
+    }
+    .editor-mobile .editor-content .am-engine {
+        // padding: 18px 0 0 0;
+    }
+    //页眉
+    .editor-headerbox{
+        display: flex;
+        padding: 0px 40px;
+        height: 100px;
+        .left{
+            flex:1;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            .headertable{
+                border-collapse: separate;
+                border-spacing: 0;
+                border-top: 1px solid #000000;
+                border-left: 1px solid #000000;
+                td{
+                    padding: 5px 10px;
+                    border: 1px solid #000000;
+                    border-top: none;
+                    border-left: none;
+                }
+            }
+        }
+        .right{
+            text-align: right;
+            img{
+            height: 100%;
+           }
+        }
+    }
+}
+
+//右边
+.right-panel{
+    overflow: auto;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: var(--el-aside-width,300px);
+    .panel-container{
+        padding: 0 8px;
+    }
+}

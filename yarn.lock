@@ -496,6 +496,13 @@
     core-js "^3.15.1"
     nanopop "^2.1.0"
 
+"@types/jquery@^3.5.16":
+  version "3.5.16"
+  resolved "https://repo.huaweicloud.com/repository/npm/@types/jquery/-/jquery-3.5.16.tgz#632131baf30951915b0317d48c98e9890bdf051d"
+  integrity sha512-bsI7y4ZgeMkmpG9OM710RRzDFp+w4P1RGiIt30C1mSBT+ExCleeh4HObwgArnDFELmRrOpXgSYN9VF1hj+f1lw==
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/lodash-es@^4.17.6":
   version "4.17.6"
   resolved "https://repo.huaweicloud.com/repository/npm/@types/lodash-es/-/lodash-es-4.17.6.tgz#c2ed4c8320ffa6f11b43eb89e9eaeec65966a0a0"
@@ -517,6 +524,11 @@
   version "3.4.0"
   resolved "https://repo.huaweicloud.com/repository/npm/@types/raf/-/raf-3.4.0.tgz#2b72cbd55405e071f1c4d29992638e022b20acc2"
   integrity sha512-taW5/WYqo36N7V39oYyHP9Ipfd5pNFvGTIQsNGj86xV88YQ7GnI30/yMfKDF7Zgin0m3e+ikX88FvImnK4RjGw==
+
+"@types/sizzle@*":
+  version "2.3.3"
+  resolved "https://repo.huaweicloud.com/repository/npm/@types/sizzle/-/sizzle-2.3.3.tgz#ff5e2f1902969d305225a047c8a0fd5c915cebef"
+  integrity sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==
 
 "@types/tinycolor2@^1.4.2":
   version "1.4.3"
@@ -1104,6 +1116,11 @@ is-what@^3.14.1:
   resolved "https://repo.huaweicloud.com/repository/npm/is-what/-/is-what-3.14.1.tgz#e1222f46ddda85dead0fd1c9df131760e77755c1"
   integrity sha512-sNxgpk9793nzSs7bA6JQJGeIuRBQhAaNGG77kzYQgMkrID+lS6SlK07K5LaptscDlSaIgH+GPFzf+d75FVxozA==
 
+jquery@^3.6.3:
+  version "3.6.3"
+  resolved "https://repo.huaweicloud.com/repository/npm/jquery/-/jquery-3.6.3.tgz#23ed2ffed8a19e048814f13391a19afcdba160e6"
+  integrity sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==
+
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
   resolved "https://repo.huaweicloud.com/repository/npm/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -1340,11 +1357,6 @@ postcss@^8.1.10, postcss@^8.4.14, postcss@^8.4.21:
     nanoid "^3.3.4"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
-
-print-js@^1.6.0:
-  version "1.6.0"
-  resolved "https://repo.huaweicloud.com/repository/npm/print-js/-/print-js-1.6.0.tgz#692b046cf31992b46afa6c6d8a9db1c69d431d1f"
-  integrity sha512-BfnOIzSKbqGRtO4o0rnj/K3681BSd2QUrsIZy/+WdCIugjIswjmx3lDEZpXB2ruGf9d4b3YNINri81+J0FsBWg==
 
 prr@~1.0.1:
   version "1.0.1"
