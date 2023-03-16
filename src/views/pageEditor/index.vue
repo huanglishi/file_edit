@@ -47,45 +47,25 @@
                 <div class="ed-main form-widget-main">
                     <!-- <el-scrollbar :height="winHeight+'px'"> -->
                         <div class="form-widget-container" :style="{height:winHeight+'px'}">
-                            <div class="editor-container-box"  :style="{height:(1122.53*2+25)+'px'}">
-                                <div class="editor-content" :style="{height:(1122.53*2+25)+'px'}">
-                                    <div class="editor-page-list">
-                                      <div class="editor-logic-page" >
-                                         
-                                        </div>
-                                        <div class="melo-page-gap" style=" width: 100%; height: 25px; pointer-events: auto;"></div>
-                                        <div class="editor-logic-page" >
-                                          <div class="header-page">
-                                            <div class="editor-headerbox" >
-                                                <div class="left">
-                                                    <table class="headertable">
-                                                        <tr>
-                                                        <td>检查单位</td>
-                                                        <td>环越监测站</td>
-                                                        <td>监管单位</td>
-                                                        <td>环越</td>
-                                                        </tr>
-                                                        <tr>
-                                                        <td>文件编号</td>
-                                                        <td>488 </td>
-                                                        <td>页码</td>
-                                                        <td>
-                                                            <div style="display: flex; justify-content: center; align-items: center;">
-                                                                第<div class="pdf-header-page"></div>页 / 共<div class="pdf-header-page-count"></div>页
-                                                            </div>  
-                                                        </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="right">
-                                                    <img src="@/assets/logo.png" />
-                                                </div>
+                            <div class="editor-container-box"  :style="{height:pageRaelheight+'px'}">
+                                <div class="editor-content" :style="{height:pageRaelheight+'px'}" @click="focusEditor">
+                                    <div class="editor-page-list" >
+                                      <template v-for="item in pageCount">
+                                          <div class="editor-logic-page">
+                                            <!--页眉-->
+                                            <div class="header-page page_wrapper">
+                                              <pageHeader :page="item" :total="pageCount"></pageHeader>
+                                            </div>
+                                            <!--页脚-->
+                                            <div class="footer-page page_wrapper">
+                                               <div class="pagetext">-第{{item}}页-</div>
                                             </div>
                                           </div>
-                                        </div>
+                                          <div class="melo-page-gap" v-if="item!=pageCount" style=" width: 100%; height: 25px; pointer-events: auto;"></div>
+                                        </template>
                                     </div>
                                      <!--编辑器2-->
-                                     <div ref="container" ></div>
+                                     <div ref="containerRef" style="padding-top:100px;padding-bottom: 40px;"></div>
                                    </div>
                             </div>
                         </div>
@@ -112,23 +92,24 @@
 </template>
 <script lang="ts"  >
 import { defineComponent, onMounted, reactive,ref,unref,nextTick, toRefs } from 'vue';
-import { ModuleList,ModuleSetting } from './component'
+import { ModuleList,ModuleSetting,pageHeader } from './component'
 import { Calendar,Memo } from '@element-plus/icons-vue'
 //编辑器
 import Engine, {
   $,
   EngineInterface,
+  Range,
 } from "@aomao/engine";
 import AmToolbar from "@aomao/toolbar-vue";
-import { getDocValue, setDocValue,setPluginValue,getTabeValue} from "./script/index";//数据存储本地
+import { getDocValue, setDocValue,setPluginValue,setPageValue,getPageValue} from "./script/index";//数据存储本地
 import { cards, plugins, pluginConfig, onLoad } from "./script/config";
 //数据
-import { inputItem,inputItemData} from './script/data';
+import { inputItem,inputItemData } from './script/data';
 export default defineComponent({
   name: 'fileEditor',
   // 注册组件
   components: {
-    ModuleList,ModuleSetting,
+    ModuleList,ModuleSetting,pageHeader,
     Calendar,Memo,
     AmToolbar
   },
@@ -138,6 +119,7 @@ export default defineComponent({
     const edit_type=ref("module")
     const editZoomVal=ref(100)
     const winHeight=ref(document.documentElement.clientHeight-50)
+    const pageCount=ref(1)//页面数
     //动态数据变量
     const state = reactive<any>({
         editZoomRef: null, // 底部导航栏组件
@@ -146,7 +128,7 @@ export default defineComponent({
     //是否处理组件编辑状态
     const showRightPlus=ref(false)
     // 编辑器容器
-    const container = ref<HTMLElement | null>(null);
+    const containerRef = ref<HTMLElement | null>(null);
     // 编辑器引擎
     const engine = ref<EngineInterface | null>(null);
      // 默认设置为当前在加载中
@@ -156,16 +138,18 @@ export default defineComponent({
     onMounted(() => {
       document.title="可分页编辑器"
       // 容器加载后实例化编辑器引擎
-      if (container.value) {
+      if (containerRef.value) {
         //实例化引擎
-        const engineInstance = new Engine(container.value, {
+        const engineInstance = new Engine(containerRef.value, {
           // 启用的插件
           plugins,
           // 启用的卡片
           cards,
+          lazyRender:false,
           // 所有的卡片配置
           config: pluginConfig,
           placeholder:"开始编辑",
+          autoAppend:true,
         });
         onLoad(engineInstance);
         //卡片最大化时设置编辑页面样式
@@ -187,29 +171,58 @@ export default defineComponent({
           fileTplData.value=value
           //时时获取组件
           nextTick(()=>{
+             //计算页面高度
             clearInterval(state.time); 
             state.timer= setTimeout(() => {
+              countPage(engineInstance)
               getPluginList()
               clearInterval(state.time); 
-            }, 1000);
+            }, 800);
           })
-          
+          // console.log("编辑内容高度：", containerRef.value?.clientHeight)
           // console.log("html:", engineInstance.getHtml());
         });
         engine.value = engineInstance;
         //  console.log("监听组件",engineInstance.command.queryEnabled("table"))
-        // engineInstance.command.execute('pagebox');
-          //监听组件删除
-        engineInstance.on("deletepagecard", (uuid) => {
-          nextTick(()=>{
-          //  engineInstance.command.execute('pagebox');
-          //  console.log("监听组件")
-            // engineInstance.card.focus(cadrs)
-          })
-         });
-        //  engineInstance.schema.addAllowIn('pagebox','table')
        }
     });
+    //计算有多少页面
+    const pageRaelheight=ref(1122.53)
+    const countPage=(engine: EngineInterface)=>{
+        let editorheight=containerRef.value?.clientHeight||0
+        editorheight=editorheight-40
+        let pagenum=Math.ceil(editorheight/1122.53)
+        if(pagenum>1){
+           const midileheight=(pagenum-1)*25//中间分割线高之和
+           const allheight=editorheight+midileheight
+           //重新介绍高度
+            pagenum=Math.ceil(allheight/(1122.53))
+            pageRaelheight.value=pagenum*1122.53+midileheight
+        }else{
+          pageRaelheight.value=pagenum*1122.53
+        }
+        const pageNum=getPageValue()
+        if(pageNum!=pagenum){
+          if(pageNum<pagenum){
+            console.log("按下回车",pagenum)
+            //创建节点中间加入空行
+            const divdom1 = $('<p><br></p>');
+            const divdom2 = $('<p><br></p>');
+            const divdom3 = $('<p><br></p>');
+            const divdom4 = $('<p><br></p>');
+            const divdom5 = $('<p><br></p>');
+            const divdom6 = $('<p><br></p>');
+            const divdom7 = $('<p><br></p>');
+            const divdom8 = $('<p><br></p>');
+            const bfnewnode=engine.container.append(divdom1).append(divdom2).append(divdom3).
+            append(divdom4).append(divdom5).append(divdom6).append(divdom7).append(divdom8)
+            const divdom9 = $('<p><br></p>');
+            const newnode= bfnewnode.append(divdom9)
+          }
+          setPageValue(pagenum.toString())
+        }
+        pageCount.value=pagenum
+    }
     //点击左边表格按钮-插入表格-标题
     const insertComponent=(key:string)=>{
        if(key=="table"){//插入表格
@@ -401,6 +414,11 @@ export default defineComponent({
       });
       return mdatalist;
     }
+    //点击编辑器上层区域让编辑器获取焦点
+    const focusEditor=()=>{
+      console.log("点击编辑器上层区域让编辑器获取焦点")
+      engine.value?.focus()
+    }
     return {
       ...toRefs(state),
       pesetting,
@@ -420,9 +438,9 @@ export default defineComponent({
         ["link", "quote", "hr"],
       ],
       //编辑器
-      container,engine,loading,
+      containerRef,engine,loading,pageCount,pageRaelheight,
       insertComponent,pluginData,
-      showRightPlus,
+      showRightPlus,focusEditor,
     };
   },
 });

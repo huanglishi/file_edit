@@ -119,14 +119,16 @@
 }
 //编辑器
 .editor-container-box {
-    width: 809.656px;
+    width: 793.667px;
     margin: 0 auto;
-    padding: 12px 8px 10px;
-    margin-bottom: 20px;
+    margin: 12px auto;
+    // padding: 12px 8px 10px;
+    // margin-bottom: 10px;
     .editor-content {
         position: relative;
         background: #fff;
-        margin-bottom: 20px;
+        // margin-bottom: 25px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23a2a9b6' font-family='system-ui, sans-serif' text-anchor='middle' dominant-baseline='middle'%3E这是提示文字%3C/text%3E%3C/svg%3E");
         .editor-page-list{
             position: absolute;
             top: 0;
@@ -137,11 +139,33 @@
                 width: 793.667px;
                 height: 1122.53px;
                 box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 10px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px;
+                position: relative;
                 .header-page{
-                    pointer-events: auto;
+                    // pointer-events: auto;
                     width: 100%;
-                    background: #fff;
+                    position: absolute;
+                    top: 0px;
+                    // background: #fff;
                     height: 100px;
+                }
+                .footer-page{
+                    width: 100%;
+                    // pointer-events: auto;
+                    position: absolute;
+                    bottom: 0px;
+                    height: 40px;
+                    // background: #fff;
+                    .pagetext{
+                        text-align: center;
+                        padding-top: 10px;
+                        height: 100%;
+                    }
+                }
+                //透明显示下层
+                .page_wrapper{
+                    background-image: radial-gradient(transparent 1px,#ffffff 1px);
+                    background-size: 4px 4px;
+                    backdrop-filter: saturate(50%) blur(4px);
                 }
             }
             .melo-page-gap {
@@ -155,46 +179,13 @@
             top: 0;
             width: 793.667px;
             background: transparent;
-            padding: 40px;
+            padding: 0px 40px 0px 40px;
             z-index: 19;
         }
     }
-    .editor-content .am-engine {
-        // padding: 40px  30px;
-    }
-    .editor-mobile .editor-content .am-engine {
-        // padding: 18px 0 0 0;
-    }
-    //页眉
-    .editor-headerbox{
-        display: flex;
-        padding: 0px 40px;
-        height: 100px;
-        .left{
-            flex:1;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            .headertable{
-                border-collapse: separate;
-                border-spacing: 0;
-                border-top: 1px solid #000000;
-                border-left: 1px solid #000000;
-                td{
-                    padding: 5px 10px;
-                    border: 1px solid #000000;
-                    border-top: none;
-                    border-left: none;
-                }
-            }
-        }
-        .right{
-            text-align: right;
-            img{
-            height: 100%;
-           }
-        }
-    }
+    :deep(.data-table){
+        background-color: transparent;
+     }
 }
 
 //右边

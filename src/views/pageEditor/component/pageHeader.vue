@@ -53,4 +53,37 @@ import { defineComponent, ref, computed, unref } from 'vue';
   });
 </script>
 <style lang="scss" scoped>
+ //页眉
+ .editor-headerbox{
+        display: flex;
+        padding: 0px 40px;
+        height: 100px;
+        user-select: none;
+        .left{
+            flex:1;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            .headertable{
+                border-collapse: separate;
+                border-spacing: 0;
+                border-top: 1px solid #000000;
+                border-left: 1px solid #000000;
+                td{
+                    padding: 5px 10px;
+                    border: 1px solid #000000;
+                    border-top: none;
+                    border-left: none;
+                }
+            }
+        }
+        .right{
+            text-align: right;
+            img{
+            height: 100%;
+            cursor: pointer;
+            pointer-events: auto;
+           }
+        }
+    }
 </style>
