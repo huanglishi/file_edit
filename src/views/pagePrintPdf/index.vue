@@ -4,23 +4,23 @@
         <el-button type="primary" class="savebtn" @click="printFile" circle >
             印
         </el-button>
-        <vue-easy-print  tableShow ref="easyPrint" >
+        <!-- <vue-easy-print  tableShow ref="easyPrint" > -->
         <div class="form-widget-container" :style="{height:'100%'}">
             <div class="editor-container-box"  :style="{height:pageRaelheight+'px'}">
                 <div class="editor-content" id="editor-content" :style="{height:pageRaelheight+'px'}" >
                     <div class="editor-page-list" >
                         <template v-for="item in pageCount">
                             <div class="editor-logic-page" id="editor-logic-page">
-                                <!--页眉-->
-                                <div class="header-page page_wrapper" >
-                                    <pageHeader :page="item" :total="pageCount"></pageHeader>
-                                </div>
-                                <!--页脚-->
-                                <div class="footer-page page_wrapper">
-                                    <div class="pagetext">-第{{item}}页-</div>
-                                </div>
+                            <!--页眉-->
+                            <div class="header-page page_wrapper">
+                                <pageHeader :page="item" :total="pageCount"></pageHeader>
                             </div>
-                            <div class="melo-page-gap" v-if="item!=pageCount" style="page-break-after:always; width: 100%; height: 23px; pointer-events: auto;"></div>
+                            <!--页脚-->
+                            <div class="footer-page page_wrapper">
+                                <div class="pagetext">-第{{item}}页-</div>
+                            </div>
+                            </div>
+                            <div class="melo-page-gap"  v-if="item!=pageCount" style="page-break-after:always; width: 100%; height: 2px; pointer-events: auto;"></div>
                         </template>
                     </div>
                     <!--编辑器-->
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-    </vue-easy-print>
+    <!-- </vue-easy-print> -->
     </div>
  </template>
  <script lang="ts"  >
@@ -38,7 +38,7 @@
  //数据
  import { inputItem} from '../FileEditor/script/data';
  //打印
- import vueEasyPrint from 'vue-easy-print'
+//  import vueEasyPrint from 'vue-easy-print'
  import { pageHeader } from '../pageEditor/component'
  //编辑器
  import Engine, {
@@ -48,11 +48,13 @@
  } from "@aomao/engine";
  //方法
 import { WaterMark } from '../pageEditor/script/commom';
+import { outputPDF } from './outputPDF'
  export default defineComponent({
    name: 'pagePrint',
    // 注册组件
    components: {
-    vueEasyPrint,pageHeader,
+    // vueEasyPrint,
+    pageHeader,
    },
    setup() {
      const winHeight=ref(document.documentElement.clientHeight-0)
@@ -71,7 +73,7 @@ import { WaterMark } from '../pageEditor/script/commom';
      // 默认设置为当前在加载中
      const loading = ref(true);
      onMounted(() => {
-         document.title="质量文件编辑器-分页打印测试"
+         document.title="分页打印测试"
        // 容器加载后实例化编辑器引擎
        if (containerRef.value) {
                 const engineInstance = new Engine(containerRef.value, {
@@ -138,40 +140,41 @@ import { WaterMark } from '../pageEditor/script/commom';
      //打印预览
      const easyPrint = ref()
      const printFile=()=>{
-        doPrint();
+        // window.print();
         // if(easyPrint.value)
         //  easyPrint.value.print()
+        handleOutput()
      }
-     const doPrint=()=>{
-                var head_str = "<html><head><title></title></head><body>"; //先生成头部
-                var foot_str = "</body></html>"; //生成尾部
-                var older = document.body.innerHTML;
-                //var new_str = document.getElementById('wrapper').innerHTML; //获取指定打印区域
-            var new_str = document.getElementsByClassName('form-widget-container')[0].innerHTML; //获取指定打印区域
-                var old_str = document.body.innerHTML; //获得原本页面的代码
-                document.body.innerHTML = head_str + new_str + foot_str; //构建新网页
-                window.print(); //打印刚才新建的网页
-                document.body.innerHTML = older; //将网页还原
-                return false;
-        }
      //分页
     //计算有多少页面
-    const pageRaelheight=ref(1100)
+    const pageRaelheight=ref(1123)
     const pageCount=ref(1)//页面数
     const countPage=()=>{
         let editorheight=containerRef.value?.clientHeight||0
         editorheight=editorheight-40
-        let pagenum=Math.ceil(editorheight/1100)
+        let pagenum=Math.ceil(editorheight/1123)
         if(pagenum>1){
            const midileheight=(pagenum-1)*25//中间分割线高之和
            const allheight=editorheight+midileheight
            //重新介绍高度
-            pagenum=Math.ceil(allheight/(1100))
-            pageRaelheight.value=pagenum*1100+midileheight
+            pagenum=Math.ceil(allheight/(1123))
+            pageRaelheight.value=pagenum*1123+midileheight
         }else{
-          pageRaelheight.value=pagenum*1100
+          pageRaelheight.value=pagenum*1123
         }
         pageCount.value=pagenum
+    }
+    //转pdf并打印
+    const handleOutput=async()=> {
+      const element = document.querySelector('.editor-content');
+      try {
+        await outputPDF({
+          element: element ,
+          contentWidth: 560
+        })
+      } catch (error) {
+        console.error(typeof error === 'string' ? error : JSON.stringify(error))
+      }
     }
      return{
          winHeight,

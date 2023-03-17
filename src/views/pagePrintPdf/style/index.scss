@@ -21,7 +21,7 @@
 }
 //编辑器
 .editor-container-box {
-    width: 793.667px;
+    width: 794px;
     margin: 0 auto;
     margin: 12px auto;
     .editor-content {
@@ -33,9 +33,8 @@
             z-index: 33;
             pointer-events: none;
             .editor-logic-page{
-                width: 793.667px;
-                height: 1100px;
-                display: block;
+                width: 794px;
+                height: 1123px;
                 // box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 10px 0px, rgba(0, 0, 0, 0.04) 0px 0px 0px 1px;
                 position: relative;
                 .header-page{
@@ -73,7 +72,7 @@
         .am-engine-view{
             position: absolute;
             top: 0;
-            width: 793.667px;
+            width: 794px;
             background: transparent;
             padding: 0px 40px 0px 40px;
             z-index: 19;
@@ -81,7 +80,7 @@
         .am-engine{
             position: absolute;
             top: 0;
-            width: 793.667px;
+            width: 794px;
             background: transparent;
             padding: 0px 40px 0px 40px;
             z-index: 19;
@@ -110,12 +109,6 @@
      }
 }
 @media print {
-    @page{
-        size:auto;
-        margin: 0;
-        width: 793.667px;
-        height: 1100px;
-    }
   .melo-page-gap{
     background: #fff;
   }

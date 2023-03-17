@@ -33,6 +33,11 @@ const routes: Array<RouteRecordRaw> = [
     component:() => import('/@/views/pagePrint/index.vue'),
   },
   {
+    path: "/3p",
+    name: "3p",
+    component:() => import('/@/views/pagePrintPdf/index.vue'),
+  },
+  {
     path: "/pe",
     name: "pe",
     component:() => import('/@/views/pageEditor/index.vue'),
