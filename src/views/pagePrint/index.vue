@@ -1,16 +1,15 @@
 <!--填写质量文件-->
 <template>
-    <div class="ed-main form-widget-main">
-        <el-button type="primary" class="savebtn" @click="printFile" circle >
-            印
-        </el-button>
-        <vue-easy-print  tableShow ref="easyPrint" >
+    <!-- <div class=" form-widget-main"> -->
         <div class="form-widget-container" :style="{height:'100%'}">
+            <el-button type="primary" class="savebtn" @click="printFile" circle >
+                    印
+                </el-button>
             <div class="editor-container-box"  :style="{height:pageRaelheight+'px'}">
                 <div class="editor-content" id="editor-content" :style="{height:pageRaelheight+'px'}" >
                     <div class="editor-page-list" >
                         <template v-for="item in pageCount">
-                            <div class="editor-logic-page" id="editor-logic-page">
+                            <div class="editor-logic-page logc-page-box" >
                                 <!--页眉-->
                                 <div class="header-page page_wrapper" >
                                     <pageHeader :page="item" :total="pageCount"></pageHeader>
@@ -25,25 +24,28 @@
                     </div>
                     <!--编辑器-->
                     <div ref="containerRef" style="padding-top:100px;padding-bottom: 40px;" ></div>
+                    <div class="editor-pagebg-list" >
+                       <template v-for="item in pageCount">
+                            <div class="editor-bg-page" >
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
         </div>
-    </vue-easy-print>
-    </div>
+    <!-- </div> -->
  </template>
  <script lang="ts"  >
  import { defineComponent, onMounted, reactive,ref,nextTick, toRefs } from 'vue';
- import { getDocValue, getPluginValue} from "../pageEditor/script/index";//数据存储本地
+ import { getDocValue, getPluginValue,getDemoData} from "../pageEditor/script/index";//数据存储本地
  import { cards, plugins, pluginConfig } from "../FileEditor/script/config";
  //数据
  import { inputItem} from '../FileEditor/script/data';
  //打印
- import vueEasyPrint from 'vue-easy-print'
  import { pageHeader } from '../pageEditor/component'
  //编辑器
  import Engine, {
    $,
-   View,
    EngineInterface,
  } from "@aomao/engine";
  //方法
@@ -52,7 +54,7 @@ import { WaterMark } from '../pageEditor/script/commom';
    name: 'pagePrint',
    // 注册组件
    components: {
-    vueEasyPrint,pageHeader,
+    pageHeader,
    },
    setup() {
      const winHeight=ref(document.documentElement.clientHeight-0)
@@ -84,7 +86,7 @@ import { WaterMark } from '../pageEditor/script/commom';
                 // 所有的卡片配置
                 config: pluginConfig,
                 });
-                const value = getDocValue() || "";
+                const value = getDocValue() || getDemoData();
                 engineInstance.setValue(value, () => {
                   loading.value = false;
                 });
@@ -129,9 +131,6 @@ import { WaterMark } from '../pageEditor/script/commom';
              });
              }, 500);
             })
-            // 水印布局 加水印的dom     水印文本
-            var watermark_txt = "<div>仅供环越站专用 请注意保护隐私</div>" ;
-            WaterMark({ "watermarl_element": "editor-content", "watermark_txt": watermark_txt });
          }
 
      });
@@ -143,16 +142,16 @@ import { WaterMark } from '../pageEditor/script/commom';
         //  easyPrint.value.print()
      }
      const doPrint=()=>{
-                var head_str = "<html><head><title></title></head><body>"; //先生成头部
-                var foot_str = "</body></html>"; //生成尾部
-                var older = document.body.innerHTML;
-                //var new_str = document.getElementById('wrapper').innerHTML; //获取指定打印区域
-            var new_str = document.getElementsByClassName('form-widget-container')[0].innerHTML; //获取指定打印区域
-                var old_str = document.body.innerHTML; //获得原本页面的代码
-                document.body.innerHTML = head_str + new_str + foot_str; //构建新网页
-                window.print(); //打印刚才新建的网页
-                document.body.innerHTML = older; //将网页还原
-                return false;
+            // var head_str = "<html><head><title></title></head><body>"; //先生成头部
+            // var foot_str = "</body></html>"; //生成尾部
+            // var older = document.body.innerHTML;
+            // var new_str = document.getElementsByClassName('form-widget-container')[0].innerHTML; //获取指定打印区域
+            // document.body.innerHTML = head_str + new_str + foot_str; //构建新网页
+            window.print(); //打印刚才新建的网页
+            // nextTick(()=>{
+            //     document.body.innerHTML = older; //将网页还原
+            // })
+            return false;
         }
      //分页
     //计算有多少页面
@@ -172,6 +171,11 @@ import { WaterMark } from '../pageEditor/script/commom';
           pageRaelheight.value=pagenum*1100
         }
         pageCount.value=pagenum
+        nextTick(()=>{
+          // 添加水印
+          var watermark_txt = "<div>仅供环越站专用 请注意保护隐私</div>" ;//水印内容
+          WaterMark({ "watermarl_element": ".editor-bg-page", "watermark_txt": watermark_txt });
+        })
     }
      return{
          winHeight,

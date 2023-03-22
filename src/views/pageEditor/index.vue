@@ -45,7 +45,6 @@
                 </div>
                 <!--编辑区-->
                 <div class="ed-main form-widget-main">
-                    <!-- <el-scrollbar :height="winHeight+'px'"> -->
                         <div class="form-widget-container" :style="{height:winHeight+'px'}">
                             <div class="editor-container-box"  :style="{height:pageRaelheight+'px'}">
                                 <div class="editor-content" id="editor-content" :style="{height:pageRaelheight+'px'}" >
@@ -66,10 +65,15 @@
                                     </div>
                                      <!--编辑器2-->
                                      <div ref="containerRef" style="padding-top:100px;padding-bottom: 40px;" ></div>
-                                   </div>
+                                     <div class="editor-pagebg-list" >
+                                        <template v-for="item in pageCount">
+                                            <div class="editor-bg-page" >
+                                            </div>
+                                          </template>
+                                      </div>
+                                </div>
                             </div>
                         </div>
-                    <!-- </el-scrollbar> -->
                 </div>
             </div>
             <!--右边组件编辑工具-->
@@ -101,7 +105,7 @@ import Engine, {
   Range,
 } from "@aomao/engine";
 import AmToolbar from "@aomao/toolbar-vue";
-import { getDocValue, setDocValue,setPluginValue,setPageValue,getPageValue} from "./script/index";//数据存储本地
+import { getDocValue, setDocValue,setPluginValue,setPageValue,getPageValue,getDemoData} from "./script/index";//数据存储本地
 import { cards, plugins, pluginConfig, onLoad } from "./script/config";
 //数据
 import { inputItem,inputItemData } from './script/data';
@@ -156,7 +160,7 @@ export default defineComponent({
         });
         onLoad(engineInstance);
         //卡片最大化时设置编辑页面样式
-        const value = getDocValue() || "";
+        const value = getDocValue() || getDemoData();
         // 非协同编辑，设置编辑器值，异步渲染后回调
         engineInstance.setValue(value, () => {
           loading.value = false;
@@ -188,9 +192,6 @@ export default defineComponent({
         engine.value = engineInstance;
         //  console.log("监听组件",engineInstance.command.queryEnabled("table"))
        }
-      // 水印布局 加水印的dom     水印文本
-      var watermark_txt = "<div>仅供环越站专用 请注意保护隐私</div>" ;
-      WaterMark({ "watermarl_element": "editor-content", "watermark_txt": watermark_txt });
     });
     //计算有多少页面
     const pageRaelheight=ref(1100)
@@ -210,7 +211,6 @@ export default defineComponent({
         const pageNum=getPageValue()
         if(pageNum!=pagenum){
           if(pageNum<pagenum){
-            console.log("按下回车",pagenum)
             //创建节点中间加入空行
             const divdom1 = $('<p><br></p>');
             const divdom2 = $('<p><br></p>');
@@ -228,6 +228,11 @@ export default defineComponent({
           setPageValue(pagenum.toString())
         }
         pageCount.value=pagenum
+        nextTick(()=>{
+          // 添加水印
+          var watermark_txt = "<div>仅供环越站专用 请注意保护隐私</div>" ;//水印内容
+          WaterMark({ "watermarl_element": ".editor-bg-page", "watermark_txt": watermark_txt });
+        })
     }
     //点击左边表格按钮-插入表格-标题
     const insertComponent=(key:string)=>{
@@ -439,8 +444,7 @@ export default defineComponent({
         ["heading", "fontfamily", "fontsize"],
         ["bold", "italic", "strikethrough", "underline", "moremark"],
         ["fontcolor", "backcolor"],
-        ["alignment"],
-        ["unorderedlist", "orderedlist", "indent", "line-height"],
+        ["alignment","unorderedlist", "orderedlist", "indent", "line-height"],
         ["link", "quote", "hr"],
       ],
       //编辑器
