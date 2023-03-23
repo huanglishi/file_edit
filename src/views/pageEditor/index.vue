@@ -160,7 +160,8 @@ export default defineComponent({
         });
         onLoad(engineInstance);
         //卡片最大化时设置编辑页面样式
-        const value = getDocValue() || getDemoData();
+        const lodata= getDocValue() 
+        const value =lodata&&lodata!=''?lodata: getDemoData();
         // 非协同编辑，设置编辑器值，异步渲染后回调
         engineInstance.setValue(value, () => {
           loading.value = false;

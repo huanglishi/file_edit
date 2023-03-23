@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: "/",
+    path: "/e",
     name: "Editor",
     component:() => import('/@/views/FileEditor/index.vue'),
   },
@@ -23,22 +23,12 @@ const routes: Array<RouteRecordRaw> = [
     component:() => import('/@/views/FilePrint/index.vue'),
   },
   {
-    path: "/cp",
-    name: "cp",
-    component:() => import('/@/views/cprint/index.vue'),
-  },
-  {
     path: "/pp",
     name: "pp",
     component:() => import('/@/views/pagePrint/index.vue'),
   },
   {
-    path: "/3p",
-    name: "3p",
-    component:() => import('/@/views/pagePrintPdf/index.vue'),
-  },
-  {
-    path: "/pe",
+    path: "/",
     name: "pe",
     component:() => import('/@/views/pageEditor/index.vue'),
   },
