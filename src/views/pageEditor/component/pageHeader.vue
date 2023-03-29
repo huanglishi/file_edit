@@ -3,10 +3,10 @@
         <div class="left">
             <table class="headertable">
                 <tr>
-                <td>检查单位</td>
-                <td>环越监测站</td>
+                <td>单位</td>
+                <td>天文台检查站</td>
                 <td>监管单位</td>
-                <td>环越</td>
+                <td>中国</td>
                 </tr>
                 <tr>
                 <td>文件编号</td>
@@ -21,7 +21,7 @@
             </table>
         </div>
         <div class="right">
-            <img src="@/assets/logo.png" />
+            <img src="@/assets/logo.jpg" />
         </div>
     </div>
 </template>
@@ -42,11 +42,7 @@ import { defineComponent, ref, computed, unref } from 'vue';
        },
     },
     emits: ['success'],
-    setup(_, { emit }) {
-        const insertComponent=(event: MouseEvent,keys: string)=>{
-            event.preventDefault();
-            emit('success', keys);
-        }
+    setup() {
         return { 
         };
     },

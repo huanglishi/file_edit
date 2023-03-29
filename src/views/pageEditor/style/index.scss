@@ -108,14 +108,14 @@
         overflow-x: hidden;
         width: 100%;
         background: #f3f5f7;
-        .form-widget-container{
-            background: transparent;
-            overflow: auto;
-            width: 100%;
-            height: 100%;
-            display: inline-flex;
-        }
     }
+}
+.form-widget-container{
+    background: transparent;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
 }
 //编辑器
 .editor-container-box {

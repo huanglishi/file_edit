@@ -144,13 +144,12 @@ import { WaterMark } from '../pageEditor/script/commom';
      const doPrint=()=>{
             // var head_str = "<html><head><title></title></head><body>"; //先生成头部
             // var foot_str = "</body></html>"; //生成尾部
-            // var older = document.body.innerHTML;
             // var new_str = document.getElementsByClassName('form-widget-container')[0].innerHTML; //获取指定打印区域
             // document.body.innerHTML = head_str + new_str + foot_str; //构建新网页
             window.print(); //打印刚才新建的网页
-            // nextTick(()=>{
-            //     document.body.innerHTML = older; //将网页还原
-            // })
+             nextTick(()=>{
+                location.reload() 
+            })
             return false;
         }
      //分页

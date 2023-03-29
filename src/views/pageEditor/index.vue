@@ -47,7 +47,7 @@
                 <div class="ed-main form-widget-main">
                         <div class="form-widget-container" :style="{height:winHeight+'px'}">
                             <div class="editor-container-box"  :style="{height:pageRaelheight+'px'}">
-                                <div class="editor-content" id="editor-content" :style="{height:pageRaelheight+'px'}" >
+                                <div class="editor-content" :style="{height:pageRaelheight+'px'}" >
                                     <div class="editor-page-list" >
                                       <template v-for="item in pageCount">
                                           <div class="editor-logic-page">
@@ -92,6 +92,8 @@
                 </div>
             </div>
         </div>
+        <!--打印内容-->
+        <iframe id="iframe" style="display: none;"></iframe>
     </div>
 </template>
 <script lang="ts"  >
@@ -231,7 +233,7 @@ export default defineComponent({
         pageCount.value=pagenum
         nextTick(()=>{
           // 添加水印
-          var watermark_txt = "<div>仅供环越站专用 请注意保护隐私</div>" ;//水印内容
+          var watermark_txt = "<div>仅供Pge专用 请注意保护隐私</div>" ;//水印内容
           WaterMark({ "watermarl_element": ".editor-bg-page", "watermark_txt": watermark_txt });
         })
     }
