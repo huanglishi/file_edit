@@ -39,4 +39,9 @@ export default defineComponent({
     padding: 0px 40px 0px 40px;
   }
 }
+:deep(.am-engine p){
+      white-space: normal;
+      margin: 0;
+      line-height: 1.74;
+    }
 </style>
