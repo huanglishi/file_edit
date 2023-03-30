@@ -172,7 +172,7 @@ import { WaterMark } from '../pageEditor/script/commom';
         pageCount.value=pagenum
         nextTick(()=>{
           // 添加水印
-          var watermark_txt = "<div>仅供环越站专用 请注意保护隐私</div>" ;//水印内容
+          var watermark_txt = "<div>仅供GoFly专用 请注意保护隐私</div>" ;//水印内容
           WaterMark({ "watermarl_element": ".editor-bg-page", "watermark_txt": watermark_txt });
         })
     }

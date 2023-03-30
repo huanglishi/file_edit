@@ -173,6 +173,7 @@ export default defineComponent({
           })
         //   console.log("value", value);
           // console.log("html:", engineInstance.getHtml());
+          localStorage.setItem(`htmlvalue`, engineInstance.getHtml());
         });
         engine.value = engineInstance;
       }
